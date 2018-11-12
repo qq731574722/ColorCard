@@ -110,6 +110,8 @@
     <Compile Include="MinePage.xaml.cs">
       <DependentUpon>MinePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Card.cs" />
+    <Compile Include="Models\Color.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

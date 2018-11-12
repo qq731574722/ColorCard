@@ -35,5 +35,11 @@ namespace UWP
             else if (GetColorPageItem.IsSelected) { contentFrame.Navigate(typeof(GetColorPage)); }
             else if (AboutPageItem.IsSelected) { contentFrame.Navigate(typeof(AboutPage)); }
         }
+
+        private void nvSample_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (contentFrame.CanGoBack)
+                contentFrame.GoBack();
+        }
     }
 }

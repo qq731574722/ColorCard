@@ -6,17 +6,70 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:data="using:UWP.Models"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
         <SolidColorBrush x:Key="AccentBrush" Color="{ThemeResource SystemAccentColor}"/>
-        <!--色卡样式-->
+        <!--GridViewItem样式-->
         <Style x:Key="ColorCardStyle" TargetType="GridViewItem">
             <Setter Property="Width" Value="206"/>
             <Setter Property="Height" Value="256"/>
             <Setter Property="Margin" Value="0,0,20,20"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
+        <!--色卡样式：靶心-->
+        <DataTemplate x:Key="CardTemplate_Bullseye" x:DataType="data:Card">
+            <Grid>
+                <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
+
+                    <Canvas.Clip>
+                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                    </Canvas.Clip>
+
+                    <Ellipse Height="400" Width="400" Fill="{x:Bind Colors[0].ARGB}" Canvas.Left="-100" Canvas.Top="-100"/>
+                    <Ellipse Height="300" Width="300" Fill="{x:Bind Colors[1].ARGB}" Canvas.Left="-74" Canvas.Top="33"/>
+                    <Ellipse Height="250" Width="250" Fill="{x:Bind Colors[2].ARGB}" Canvas.Top="100" Canvas.Left="-70" />
+                    <Ellipse Height="130" Width="130" Fill="{x:Bind Colors[3].ARGB}" Canvas.Top="164" Canvas.Left="-25"/>
+                </Canvas>
+                <TextBlock Text="{x:Bind Name}" FontSize="36" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Opacity="0.5"/>
+                <TextBlock Text="{x:Bind ID}"  FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" Margin="5" Opacity="0.5"/>
+            </Grid>
+        </DataTemplate>
+
+        <!--色卡样式：竖条纹-->
+        <DataTemplate x:Key="CardTemplate_Vertical" x:DataType="data:Card">
+            <Grid>
+                <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
+                    <Canvas.Clip>
+                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                    </Canvas.Clip>
+                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[0].ARGB}" Canvas.Left="150"/>
+                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[1].ARGB}" Canvas.Left="100"/>
+                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[2].ARGB}" Canvas.Left="50"/>
+                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[3].ARGB}" Canvas.Left="0" />
+                </Canvas>
+                <TextBlock Text="{x:Bind Name}" FontSize="36" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Opacity="0.5"/>
+                <TextBlock Text="{x:Bind ID}"  FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" Margin="5" Opacity="0.5"/>
+            </Grid>
+        </DataTemplate>
+
+        <!--色卡样式：横条纹-->
+        <DataTemplate x:Key="CardTemplate_Horizontal" x:DataType="data:Card">
+            <Grid>
+                <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
+                    <Canvas.Clip>
+                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                    </Canvas.Clip>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[0].ARGB}" Canvas.Top="187.5"/>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[1].ARGB}" Canvas.Top="125"/>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[2].ARGB}" Canvas.Top="62.5"/>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[3].ARGB}" Canvas.Top="0"/>
+                </Canvas>
+                <TextBlock Text="{x:Bind Name}" FontSize="36" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Opacity="0.5"/>
+                <TextBlock Text="{x:Bind ID}"  FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" Margin="5" Opacity="0.5"/>
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Margin="24,0,0,0">
@@ -43,21 +96,30 @@
                             Margin="0,0,24,0"/>
         </Grid>
         <!--Contents-->
-        <GridView Grid.Row="1">
+        <GridView Name="GridView_Cards"
+                  Grid.Row="1" 
+                  ItemsSource="{x:Bind Cards}" 
+                  ItemContainerStyle="{ThemeResource ColorCardStyle}"
+                  ItemTemplate="{StaticResource CardTemplate_Bullseye}"
+                  IsItemClickEnabled="True"
+                  ItemClick="GridView_ItemClick">
+
+
             <!--卡片样式：靶心-->
             <GridViewItem Style="{StaticResource ColorCardStyle}">
-                <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
-                    <Canvas.Clip>
-                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
-                    </Canvas.Clip>
-                    <Ellipse Height="400" Width="400" Fill="#FF177E89" Canvas.Left="-100" Canvas.Top="-100"/>
-                    <Ellipse Height="300" Width="300" Fill="#FF084C61"  Canvas.Left="-74" Canvas.Top="33"/>
-                    <Ellipse Height="250" Width="250" Fill="#FFFFC857" Canvas.Top="100" Canvas.Left="-70" />
-                    <Ellipse Height="130" Width="130" Fill="#FFDB3A34" Canvas.Top="164" Canvas.Left="-25"/>
-                    <TextBlock FontSize="36" Canvas.Left="6" Canvas.Top="196" Opacity="0.5">
-                        <Bold Foreground="White">412</Bold>
-                    </TextBlock>
-                </Canvas>
+                <Grid>
+                    <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
+                        <Canvas.Clip>
+                            <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                        </Canvas.Clip>
+                        <Ellipse Height="400" Width="400" Fill="#FF177E89" Canvas.Left="-100" Canvas.Top="-100"/>
+                        <Ellipse Height="300" Width="300" Fill="#FF084C61"  Canvas.Left="-74" Canvas.Top="33"/>
+                        <Ellipse Height="250" Width="250" Fill="#FFFFC857" Canvas.Top="100" Canvas.Left="-70" />
+                        <Ellipse Height="130" Width="130" Fill="#FFDB3A34" Canvas.Top="164" Canvas.Left="-25"/>
+                    </Canvas>
+                    <TextBlock FontSize="36" HorizontalAlignment="Center" Text="Colr" Foreground="White" FontWeight="Bold" Opacity="0.5"/>
+                    <TextBlock FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="1" Foreground="White" FontWeight="Bold" Margin="5" Opacity="0.5"/>
+                </Grid>
             </GridViewItem>
             <!--卡片样式：竖直纹样式-->
             <GridViewItem Style="{StaticResource ColorCardStyle}">
@@ -90,101 +152,7 @@
                     </TextBlock>
                 </Canvas>
             </GridViewItem>
-
-            <!--卡片样式：靶心-->
-            <GridViewItem Style="{StaticResource ColorCardStyle}">
-                <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
-                    <Canvas.Clip>
-                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
-                    </Canvas.Clip>
-                    <Ellipse Height="400" Width="400" Fill="#FF177E89" Canvas.Left="-100" Canvas.Top="-100"/>
-                    <Ellipse Height="300" Width="300" Fill="#FF084C61"  Canvas.Left="-74" Canvas.Top="33"/>
-                    <Ellipse Height="250" Width="250" Fill="#FFFFC857" Canvas.Top="100" Canvas.Left="-70" />
-                    <Ellipse Height="130" Width="130" Fill="#FFDB3A34" Canvas.Top="164" Canvas.Left="-25"/>
-                    <TextBlock FontSize="36" Canvas.Left="6" Canvas.Top="196" Opacity="0.5">
-                        <Bold Foreground="White">4</Bold>
-                    </TextBlock>
-                </Canvas>
-            </GridViewItem>
-            <!--卡片样式：竖直纹样式-->
-            <GridViewItem Style="{StaticResource ColorCardStyle}">
-                <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
-                    <Canvas.Clip>
-                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
-                    </Canvas.Clip>
-                    <Rectangle Height="250" Width="50" Fill="#FFDB3A34" Canvas.Left="0" />
-                    <Rectangle Height="250" Width="50" Fill="#FFFFC857" Canvas.Left="50"/>
-                    <Rectangle Height="250" Width="50" Fill="#FF084C61" Canvas.Left="100"/>
-                    <Rectangle Height="250" Width="50" Fill="#FF177E89" Canvas.Left="150"/>
-                    <TextBlock FontSize="36" Canvas.Left="6" Canvas.Top="196" Opacity="0.5">
-                    <Bold Foreground="White">5</Bold>
-                    </TextBlock>
-                </Canvas>
-            </GridViewItem>
-
-            <!--卡片样式：横直纹样式-->
-            <GridViewItem Style="{StaticResource ColorCardStyle}">
-                <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
-                    <Canvas.Clip>
-                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
-                    </Canvas.Clip>
-                    <Rectangle Height="62.5" Width="200" Fill="#FF177E89" Canvas.Top="0"/>
-                    <Rectangle Height="62.5" Width="200" Fill="#FF084C61" Canvas.Top="62.5"/>
-                    <Rectangle Height="62.5" Width="200" Fill="#FFFFC857" Canvas.Top="125"/>
-                    <Rectangle Height="62.5" Width="200" Fill="#FFDB3A34" Canvas.Top="187.5"/>
-                    <TextBlock FontSize="36" Canvas.Left="6" Canvas.Top="196" Opacity="0.5">
-                    <Bold Foreground="White">6</Bold>
-                    </TextBlock>
-                </Canvas>
-            </GridViewItem>
-
-            <!--卡片样式：靶心-->
-            <GridViewItem Style="{StaticResource ColorCardStyle}">
-                <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
-                    <Canvas.Clip>
-                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
-                    </Canvas.Clip>
-                    <Ellipse Height="400" Width="400" Fill="#FF177E89" Canvas.Left="-100" Canvas.Top="-100"/>
-                    <Ellipse Height="300" Width="300" Fill="#FF084C61"  Canvas.Left="-74" Canvas.Top="33"/>
-                    <Ellipse Height="250" Width="250" Fill="#FFFFC857" Canvas.Top="100" Canvas.Left="-70" />
-                    <Ellipse Height="130" Width="130" Fill="#FFDB3A34" Canvas.Top="164" Canvas.Left="-25"/>
-                    <TextBlock FontSize="36" Canvas.Left="6" Canvas.Top="196" Opacity="0.5">
-                        <Bold Foreground="White">7</Bold>
-                    </TextBlock>
-                </Canvas>
-            </GridViewItem>
-            <!--卡片样式：竖直纹样式-->
-            <GridViewItem Style="{StaticResource ColorCardStyle}">
-                <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
-                    <Canvas.Clip>
-                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
-                    </Canvas.Clip>
-                    <Rectangle Height="250" Width="50" Fill="#FFDB3A34" Canvas.Left="0" />
-                    <Rectangle Height="250" Width="50" Fill="#FFFFC857" Canvas.Left="50"/>
-                    <Rectangle Height="250" Width="50" Fill="#FF084C61" Canvas.Left="100"/>
-                    <Rectangle Height="250" Width="50" Fill="#FF177E89" Canvas.Left="150"/>
-                    <TextBlock FontSize="36" Canvas.Left="6" Canvas.Top="196" Opacity="0.5">
-                    <Bold Foreground="White">8</Bold>
-                    </TextBlock>
-                </Canvas>
-            </GridViewItem>
-
-            <!--卡片样式：横直纹样式-->
-            <GridViewItem Style="{StaticResource ColorCardStyle}">
-                <Canvas Width="200" Height="250" Background="{ThemeResource AccentBrush}">
-                    <Canvas.Clip>
-                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
-                    </Canvas.Clip>
-                    <Ellipse Height="400" Width="400" Fill="#FF177E89" Canvas.Left="-100" Canvas.Top="-100"/>
-                    <Ellipse Height="300" Width="300" Fill="#FF084C61"  Canvas.Left="-74" Canvas.Top="33"/>
-                    <Ellipse Height="250" Width="250" Fill="#FFFFC857" Canvas.Top="100" Canvas.Left="-70" />
-                    <Ellipse Height="130" Width="130" Fill="#FFDB3A34" Canvas.Top="164" Canvas.Left="-25"/>
-                    <TextBlock FontSize="36" Canvas.Left="6" Canvas.Top="196" Opacity="0.5">
-                    <Bold Foreground="White">9</Bold>
-                    </TextBlock>
-                </Canvas>
-            </GridViewItem>
-
+            
         </GridView>
     </Grid>
 </Page>
