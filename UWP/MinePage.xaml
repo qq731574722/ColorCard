@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="UWP.MinePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel>
+        <Grid Margin="24,0,24,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontSize="28" VerticalAlignment="Center" Text="我的"/>
+            <AutoSuggestBox QueryIcon="Find"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center"
+                            MinWidth="150"/>
+
+        </Grid>
+    </StackPanel>
+</Page>

@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <NavigationView x:Name="nvSample"
+                        SelectionChanged="nvSample_SelectionChanged"
+                        OpenPaneLength="150">
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="HomePageItem"      Icon="Home"         Content="色卡" Tag="HomePage"     />
+                <NavigationViewItem x:Name="MinePageItem"      Icon="Favorite"     Content="我的" Tag="GetColorPage" />
+                <NavigationViewItem x:Name="GetColorPageItem"  Icon="BrowsePhotos" Content="取色" Tag="MinePage"     />
+                <NavigationViewItem x:Name="AboutPageItem"     Icon="Contact"      Content="关于" Tag="AboutPage"    />
+            </NavigationView.MenuItems>
+            <Frame x:Name="contentFrame"/>
+        </NavigationView>
+    </Grid>
+</Page>
