@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using UWP.Models;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -25,6 +26,28 @@ namespace UWP
         public SettingPage()
         {
             this.InitializeComponent();
+            if (Card.Style == CardStyle.Bullseye)
+                MyGridView.SelectedItem = CardTemplate_Bullseye;
+            else if (Card.Style == CardStyle.Horizontal)
+                MyGridView.SelectedItem = CardTemplate_Horizontal;
+            else if (Card.Style == CardStyle.Vertical)
+                MyGridView.SelectedItem = CardTemplate_Vertical;
+        }
+
+        private void MyGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CardTemplate_Bullseye.IsSelected)
+            {
+                Card.Style = CardStyle.Bullseye;
+            }
+            else if (CardTemplate_Horizontal.IsSelected)
+            {
+                Card.Style = CardStyle.Horizontal;
+            }
+            else if (CardTemplate_Vertical.IsSelected)
+            {
+                Card.Style = CardStyle.Vertical;
+            }
         }
     }
 }

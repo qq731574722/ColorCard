@@ -33,7 +33,7 @@ namespace UWP
             {
                 Cards.Add(c);
             }
-            Card.Style = CardStyle.Horizontal;
+            //Card.Style = CardStyle.Horizontal;
             switch(Card.Style)
             {
                 case CardStyle.Bullseye:
@@ -51,7 +51,7 @@ namespace UWP
             ContentDialog nDialog = new ContentDialog()
             {
                 Title = card.Name,
-                Content = card.ID.ToString(),
+                Content = card.ID.ToString()+ Card.Style,
                 CloseButtonText = "Ok",
             };
             if (string.IsNullOrEmpty(card.Name))

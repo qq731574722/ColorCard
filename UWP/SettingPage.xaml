@@ -8,13 +8,71 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <Style x:Key="ColorCardStyle" TargetType="GridViewItem">
+            <Setter Property="Width" Value="206"/>
+            <Setter Property="Height" Value="256"/>
+            <Setter Property="Margin" Value="0,0,20,20"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+    </Page.Resources>
+    
     <StackPanel>
         <Grid Margin="24,0,24,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock FontSize="28" VerticalAlignment="Center" Text="设置"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!-- Title -->
+            <TextBlock VerticalAlignment="Center" FontSize="28" Text="设置" Style="{ThemeResource TitleTextBlockStyle}"/>
+            <!-- Content -->
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="卡片样式" FontSize="20" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="0,10,0,20"/>
+                
+                <GridView x:Name="MyGridView"
+                          ItemContainerStyle="{ThemeResource ColorCardStyle}"
+                          SelectionMode="Single"
+                          SelectionChanged="MyGridView_SelectionChanged">
+
+                    <GridViewItem Name="CardTemplate_Bullseye" Style="{StaticResource ColorCardStyle}">
+                        <Canvas Width="200" Height="250">
+                            <Canvas.Clip>
+                                <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                            </Canvas.Clip>
+                            <Ellipse Height="400" Width="400" Fill="#FF177E89" Canvas.Left="-100" Canvas.Top="-100"/>
+                            <Ellipse Height="300" Width="300" Fill="#FF084C61"  Canvas.Left="-74" Canvas.Top="33"/>
+                            <Ellipse Height="250" Width="250" Fill="#FFFFC857" Canvas.Top="100" Canvas.Left="-70" />
+                            <Ellipse Height="130" Width="130" Fill="#FFDB3A34" Canvas.Top="164" Canvas.Left="-25"/>
+                        </Canvas>
+                    </GridViewItem>
+
+                    <GridViewItem Name="CardTemplate_Vertical" Style="{StaticResource ColorCardStyle}">
+                        <Canvas Width="200" Height="250">
+                            <Canvas.Clip>
+                                <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                            </Canvas.Clip>
+                            <Rectangle Height="250" Width="50" Fill="#FFDB3A34" Canvas.Left="0" />
+                            <Rectangle Height="250" Width="50" Fill="#FFFFC857" Canvas.Left="50"/>
+                            <Rectangle Height="250" Width="50" Fill="#FF084C61" Canvas.Left="100"/>
+                            <Rectangle Height="250" Width="50" Fill="#FF177E89" Canvas.Left="150"/>
+                        </Canvas>
+                    </GridViewItem>
+
+                    <GridViewItem Name="CardTemplate_Horizontal" Style="{StaticResource ColorCardStyle}">
+                        <Canvas Width="200" Height="250">
+                            <Canvas.Clip>
+                                <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                            </Canvas.Clip>
+                            <Rectangle Height="62.5" Width="200" Fill="#FF177E89" Canvas.Top="0"/>
+                            <Rectangle Height="62.5" Width="200" Fill="#FF084C61" Canvas.Top="62.5"/>
+                            <Rectangle Height="62.5" Width="200" Fill="#FFFFC857" Canvas.Top="125"/>
+                            <Rectangle Height="62.5" Width="200" Fill="#FFDB3A34" Canvas.Top="187.5"/>
+                        </Canvas>
+                    </GridViewItem>
+                    
+                </GridView>
+                
+            </StackPanel>
         </Grid>
     </StackPanel>
 </Page>
