@@ -13,15 +13,15 @@
                         OpenPaneLength="150"
                         Loaded="nvSample_Loaded"
                         ItemInvoked="nvSample_ItemInvoked"
-                        SelectionChanged="nvSample_SelectionChanged"
-                        IsBackButtonVisible="Auto">
+                        IsBackButtonVisible="Auto"
+                        BackRequested="nvSample_BackRequested">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="HomePageItem"      Icon="Home"         Content="色卡" Tag="HomePage"     />
-                <NavigationViewItem x:Name="MinePageItem"      Icon="Favorite"     Content="我的" Tag="GetColorPage" />
-                <NavigationViewItem x:Name="GetColorPageItem"  Icon="BrowsePhotos" Content="取色" Tag="MinePage"     />
+                <NavigationViewItem x:Name="MinePageItem"      Icon="Favorite"     Content="我的" Tag="MinePage" />
+                <NavigationViewItem x:Name="GetColorPageItem"  Icon="BrowsePhotos" Content="取色" Tag="GetColorPage"     />
                 <NavigationViewItem x:Name="AboutPageItem"     Icon="Contact"      Content="关于" Tag="AboutPage"    />
             </NavigationView.MenuItems>
-            <Frame x:Name="contentFrame" Navigated="contentFrame_Navigated"/>
+            <Frame x:Name="contentFrame"/>
         </NavigationView>
     </Grid>
 </Page>

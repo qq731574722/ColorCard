@@ -26,24 +26,32 @@ namespace UWP
     {
         private const string PageNamespace = nameof(UWP);
 
+        // List of ValueTuple holding the Navigation Tag and the relative Navigation Page 
+        private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
+        {
+            ("HomePage", typeof(HomePage)),
+            ("MinePage", typeof(MinePage)),
+            ("GetColorPage", typeof(GetColorPage)),
+            ("AboutPage", typeof(AboutPage)),
+        };
+
         public MainPage()
         {
             this.InitializeComponent();
-            contentFrame.Navigated += contentFrame_Navigated;
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+        }
+
+        private void nvSample_Loaded(object sender, RoutedEventArgs e)
+        {
+            contentFrame.Navigated += On_Navigated ;
+            foreach (NavigationViewItemBase item in nvSample.MenuItems)
+            {
+                if(item is NavigationViewItem && item.Tag.ToString()=="HomePage")
+                {
+                    nvSample.SelectedItem = item;
+                    break;
+                }
+            }
             contentFrame.Navigate(typeof(HomePage));
-        }
-        
-        private void contentFrame_Navigated(object sender, NavigationEventArgs e)
-        {
-            var pageName = contentFrame.Content.GetType().Name;
-            //nvSample.SelectedItem = nvSample.MenuItems.OfType<NavigationViewItem>().Where(item => item.Tag.ToString() == pageName).First();
-        }
-        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (contentFrame.CanGoBack)
-                contentFrame.GoBack();
         }
         private void nvSample_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
@@ -59,23 +67,30 @@ namespace UWP
                 contentFrame.Navigate(pageType);
             }
         }
-
-        private void nvSample_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        
+        private void nvSample_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
         {
-
+            if (contentFrame.CanGoBack)
+                contentFrame.GoBack();
         }
 
-        private void nvSample_Loaded(object sender, RoutedEventArgs e)
+        private void On_Navigated(object sender, NavigationEventArgs e)
         {
-            foreach (NavigationViewItemBase item in nvSample.MenuItems)
+            nvSample.IsBackEnabled = contentFrame.CanGoBack;
+
+            if (contentFrame.SourcePageType == typeof(SettingPage))
             {
-                if(item is NavigationViewItem && item.Tag.ToString()=="HomePage")
-                {
-                    nvSample.SelectedItem = item;
-                    break;
-                }
+                // SettingsItem is not part of NavView.MenuItems, and doesn't have a Tag.
+                nvSample.SelectedItem = (NavigationViewItem)nvSample.SettingsItem;
             }
-            contentFrame.Navigate(typeof(HomePage));
+            else if (contentFrame.SourcePageType != null)
+            {
+                var item = _pages.FirstOrDefault(p => p.Page == e.SourcePageType);
+
+                nvSample.SelectedItem = nvSample.MenuItems
+                    .OfType<NavigationViewItem>()
+                    .First(n => n.Tag.Equals(item.Tag));
+            }
         }
     }
 }
