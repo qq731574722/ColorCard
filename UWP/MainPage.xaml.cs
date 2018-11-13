@@ -34,11 +34,11 @@ namespace UWP
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
             contentFrame.Navigate(typeof(HomePage));
         }
-
+        
         private void contentFrame_Navigated(object sender, NavigationEventArgs e)
         {
             var pageName = contentFrame.Content.GetType().Name;
-            nvSample.SelectedItem = nvSample.MenuItems.OfType<NavigationViewItem>().Where(item => item.Tag.ToString() == pageName).First();
+            //nvSample.SelectedItem = nvSample.MenuItems.OfType<NavigationViewItem>().Where(item => item.Tag.ToString() == pageName).First();
         }
         private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
         {
@@ -47,10 +47,35 @@ namespace UWP
         }
         private void nvSample_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            var invokedMenuItem = sender.MenuItems.OfType<NavigationViewItem>().Where(item => item.Content.ToString() == args.InvokedItem.ToString()).First();
-            var pageTypeName = invokedMenuItem.Tag.ToString();
-            var pageType = Assembly.GetExecutingAssembly().GetType($"{PageNamespace}.{pageTypeName}");
-            contentFrame.Navigate(pageType);
+            if(args.IsSettingsInvoked)
+            {
+                contentFrame.Navigate(typeof(SettingPage));
+            }
+            else
+            {
+                var invokedMenuItem = sender.MenuItems.OfType<NavigationViewItem>().Where(item => item.Content.ToString() == args.InvokedItem.ToString()).First();
+                var pageTypeName = invokedMenuItem.Tag.ToString();
+                var pageType = Assembly.GetExecutingAssembly().GetType($"{PageNamespace}.{pageTypeName}");
+                contentFrame.Navigate(pageType);
+            }
+        }
+
+        private void nvSample_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+
+        }
+
+        private void nvSample_Loaded(object sender, RoutedEventArgs e)
+        {
+            foreach (NavigationViewItemBase item in nvSample.MenuItems)
+            {
+                if(item is NavigationViewItem && item.Tag.ToString()=="HomePage")
+                {
+                    nvSample.SelectedItem = item;
+                    break;
+                }
+            }
+            contentFrame.Navigate(typeof(HomePage));
         }
     }
 }

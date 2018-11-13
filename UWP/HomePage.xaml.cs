@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -21,11 +22,17 @@ namespace UWP
     /// </summary>
     public sealed partial class HomePage : Page
     {
-        private List<Card> Cards;
+        //private List<Card> Cards;
+        private ObservableCollection<Card> Cards;
         public HomePage()
         {
             this.InitializeComponent();
-            Cards = CardManager.GetCards();
+            Cards = new ObservableCollection<Card>();
+            var mycards = CardManager.GetCards();
+            foreach(Card c in mycards)
+            {
+                Cards.Add(c);
+            }
             Card.Style = CardStyle.Horizontal;
             switch(Card.Style)
             {
@@ -49,6 +56,7 @@ namespace UWP
             };
             if (string.IsNullOrEmpty(card.Name))
                 nDialog.Title = "色卡 No." + card.ID;
+            Cards.Remove(card);
             await nDialog.ShowAsync();
         }
     }

@@ -11,7 +11,9 @@
     <Grid>
         <NavigationView x:Name="nvSample"
                         OpenPaneLength="150"
+                        Loaded="nvSample_Loaded"
                         ItemInvoked="nvSample_ItemInvoked"
+                        SelectionChanged="nvSample_SelectionChanged"
                         IsBackButtonVisible="Auto">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="HomePageItem"      Icon="Home"         Content="色卡" Tag="HomePage"     />
