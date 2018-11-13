@@ -10,17 +10,16 @@
 
     <Grid>
         <NavigationView x:Name="nvSample"
-                        SelectionChanged="nvSample_SelectionChanged"
                         OpenPaneLength="150"
-                        IsBackButtonVisible="Visible"
-                        BackRequested="nvSample_BackRequested">
+                        ItemInvoked="nvSample_ItemInvoked"
+                        IsBackButtonVisible="Auto">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="HomePageItem"      Icon="Home"         Content="色卡" Tag="HomePage"     />
                 <NavigationViewItem x:Name="MinePageItem"      Icon="Favorite"     Content="我的" Tag="GetColorPage" />
                 <NavigationViewItem x:Name="GetColorPageItem"  Icon="BrowsePhotos" Content="取色" Tag="MinePage"     />
                 <NavigationViewItem x:Name="AboutPageItem"     Icon="Contact"      Content="关于" Tag="AboutPage"    />
             </NavigationView.MenuItems>
-            <Frame x:Name="contentFrame"/>
+            <Frame x:Name="contentFrame" Navigated="contentFrame_Navigated"/>
         </NavigationView>
     </Grid>
 </Page>

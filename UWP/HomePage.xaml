@@ -61,10 +61,10 @@
                     <Canvas.Clip>
                         <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
                     </Canvas.Clip>
-                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[0].ARGB}" Canvas.Top="187.5"/>
-                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[1].ARGB}" Canvas.Top="125"/>
-                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[2].ARGB}" Canvas.Top="62.5"/>
-                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[3].ARGB}" Canvas.Top="0"/>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[0].ARGB}" Canvas.Top="0"/>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[1].ARGB}" Canvas.Top="62.5"/>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[2].ARGB}" Canvas.Top="125"/>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[3].ARGB}" Canvas.Top="187.5"/>
                 </Canvas>
                 <TextBlock Text="{x:Bind Name}" FontSize="36" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" Opacity="0.5"/>
                 <TextBlock Text="{x:Bind ID}"  FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" Margin="5" Opacity="0.5"/>

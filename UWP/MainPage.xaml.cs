@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,24 +24,33 @@ namespace UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private const string PageNamespace = nameof(UWP);
+
         public MainPage()
         {
             this.InitializeComponent();
+            contentFrame.Navigated += contentFrame_Navigated;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
             contentFrame.Navigate(typeof(HomePage));
         }
 
-        private void nvSample_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private void contentFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            if (HomePageItem.IsSelected) { contentFrame.Navigate(typeof(HomePage)); }
-            else if (MinePageItem.IsSelected) { contentFrame.Navigate(typeof(MinePage)); }
-            else if (GetColorPageItem.IsSelected) { contentFrame.Navigate(typeof(GetColorPage)); }
-            else if (AboutPageItem.IsSelected) { contentFrame.Navigate(typeof(AboutPage)); }
+            var pageName = contentFrame.Content.GetType().Name;
+            nvSample.SelectedItem = nvSample.MenuItems.OfType<NavigationViewItem>().Where(item => item.Tag.ToString() == pageName).First();
         }
-
-        private void nvSample_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
         {
             if (contentFrame.CanGoBack)
                 contentFrame.GoBack();
+        }
+        private void nvSample_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+            var invokedMenuItem = sender.MenuItems.OfType<NavigationViewItem>().Where(item => item.Content.ToString() == args.InvokedItem.ToString()).First();
+            var pageTypeName = invokedMenuItem.Tag.ToString();
+            var pageType = Assembly.GetExecutingAssembly().GetType($"{PageNamespace}.{pageTypeName}");
+            contentFrame.Navigate(pageType);
         }
     }
 }
