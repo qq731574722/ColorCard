@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UWP.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -42,6 +43,16 @@ namespace UWP
                     break;
             }
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            /*
+            FolderPicker pick = new FolderPicker();
+            pick.FileTypeFilter.Add(".png");
+            pick.FileTypeFilter.Add(".jpg");
+            pick.FileTypeFilter.Add(".bmp");
+            */
         }
     }
 }

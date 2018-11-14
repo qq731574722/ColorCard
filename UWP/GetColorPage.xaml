@@ -65,6 +65,7 @@
             </Grid.RowDefinitions>
             <TextBlock FontSize="28" VerticalAlignment="Center" Text="取色"/>
             <StackPanel Grid.Row="1">
+                <!-- 色卡展示部分 -->
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"/>
@@ -99,6 +100,26 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
+                <!--end  色卡展示部分 -->
+                <!-- 按钮 -->
+                <StackPanel Orientation="Horizontal">
+                    <GridView Margin="0,10,0,0" SelectionMode="Single">
+                        <TextBlock>4色</TextBlock>
+                        <TextBlock>5色</TextBlock>
+                        <TextBlock>6色</TextBlock>
+                    </GridView>
+                    <Button Content="保存色卡" Margin="225,0,0,0"></Button>
+                </StackPanel>
+                
+                <!-- 取色部分 -->
+                <Button Click="Button_Click" BorderThickness="0" Padding="0">
+                    <Canvas Width="450" Height="300">
+                        <Rectangle Fill="#177E89" Width="450" Height="300"></Rectangle>
+                        <Viewbox MaxHeight="100" Canvas.Top="100" Canvas.Left="175">
+                            <SymbolIcon Symbol="Add" Foreground="White" Opacity="0.5"/>
+                        </Viewbox>
+                    </Canvas>
+                </Button>
             </StackPanel>
         </Grid>
     </StackPanel>
