@@ -27,17 +27,17 @@ namespace UWP.Models
             List<Card> cards = new List<Card>();
             List<Color> colors1 = new List<Color>
             {
-                new Color { ARGB = "#FF177E89" },
-                new Color { ARGB = "#FF084C61" },
-                new Color { ARGB = "#FFFFC857" },
-                new Color { ARGB = "#FFDB3A34" }
+                new Color { RGB = "#177E89" },
+                new Color { RGB = "#084C61" },
+                new Color { RGB = "#FFC857" },
+                new Color { RGB = "#DB3A34" }
             };
             List<Color> colors2 = new List<Color>
             {
-                new Color { ARGB = "Red" },
-                new Color { ARGB = "Blue" },
-                new Color { ARGB = "Green" },
-                new Color { ARGB = "Yellow" }
+                new Color { RGB = "Red" },
+                new Color { RGB = "Blue" },
+                new Color { RGB = "Green" },
+                new Color { RGB = "Yellow" }
             };
             cards.Add(new Card { Name = "Colr", Colors = colors1, ColorNum = colors1.Count, ID = 8 });
             cards.Add(new Card { Name = "Card", Colors = colors1, ColorNum = colors1.Count, ID = 9 });

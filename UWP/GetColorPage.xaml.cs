@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,9 +23,25 @@ namespace UWP
     /// </summary>
     public sealed partial class GetColorPage : Page
     {
+        private Card card{ get; set; }
         public GetColorPage()
         {
             this.InitializeComponent();
+            card = CardManager.GetCards()[0];
+
+            switch (Card.Style)
+            {
+                case CardStyle.Bullseye:
+                    CardItem.ContentTemplate = this.Resources["CardTemplate_Bullseye"] as DataTemplate;
+                    break;
+                case CardStyle.Vertical:
+                    CardItem.ContentTemplate = this.Resources["CardTemplate_Vertical"] as DataTemplate;
+                    break;
+                case CardStyle.Horizontal:
+                    CardItem.ContentTemplate = this.Resources["CardTemplate_Horizontal"] as DataTemplate;
+                    break;
+            }
+
         }
     }
 }

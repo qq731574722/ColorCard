@@ -6,15 +6,100 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:data="using:UWP.Models"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <!--色卡样式：靶心-->
+        <DataTemplate x:Key="CardTemplate_Bullseye" x:DataType="data:Card">
+            <Grid>
+                <Canvas Width="200" Height="250">
+                    <Canvas.Clip>
+                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                    </Canvas.Clip>
+
+                    <Ellipse Height="400" Width="400" Fill="{x:Bind Colors[0].RGB}" Canvas.Left="-100" Canvas.Top="-100"/>
+                    <Ellipse Height="300" Width="300" Fill="{x:Bind Colors[1].RGB}" Canvas.Left="-74" Canvas.Top="33"/>
+                    <Ellipse Height="250" Width="250" Fill="{x:Bind Colors[2].RGB}" Canvas.Top="100" Canvas.Left="-70" />
+                    <Ellipse Height="130" Width="130" Fill="{x:Bind Colors[3].RGB}" Canvas.Top="164" Canvas.Left="-25"/>
+                </Canvas>
+            </Grid>
+        </DataTemplate>
+
+        <!--色卡样式：竖条纹-->
+        <DataTemplate x:Key="CardTemplate_Vertical" x:DataType="data:Card">
+            <Grid>
+                <Canvas Width="200" Height="250">
+                    <Canvas.Clip>
+                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                    </Canvas.Clip>
+                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[0].RGB}" Canvas.Left="150"/>
+                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[1].RGB}" Canvas.Left="100"/>
+                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[2].RGB}" Canvas.Left="50"/>
+                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[3].RGB}" Canvas.Left="0" />
+                </Canvas>
+            </Grid>
+        </DataTemplate>
+
+        <!--色卡样式：横条纹-->
+        <DataTemplate x:Key="CardTemplate_Horizontal" x:DataType="data:Card">
+            <Grid>
+                <Canvas Width="200" Height="250">
+                    <Canvas.Clip>
+                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                    </Canvas.Clip>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[0].RGB}" Canvas.Top="0"/>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[1].RGB}" Canvas.Top="62.5"/>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[2].RGB}" Canvas.Top="125"/>
+                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[3].RGB}" Canvas.Top="187.5"/>
+                </Canvas>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    
     <StackPanel>
         <Grid Margin="24,0,24,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <TextBlock FontSize="28" VerticalAlignment="Center" Text="取色"/>
+            <StackPanel Grid.Row="1">
+                <Grid Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ContentControl x:Name="CardItem" 
+                                    Content="{x:Bind card}">
+
+                    </ContentControl>
+
+                    <Grid Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[3].RGB}" Margin="0,0,10,10"/>
+                                <TextBlock Text="{x:Bind card.Colors[3].RGB}" FontSize="24"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[2].RGB}" Margin="0,0,10,10"/>
+                                <TextBlock Text="{x:Bind card.Colors[2].RGB}" FontSize="24"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[1].RGB}" Margin="0,0,10,10"/>
+                                <TextBlock Text="{x:Bind card.Colors[1].RGB}" FontSize="24"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[0].RGB}" Margin="0,0,10,10"/>
+                                <TextBlock Text="{x:Bind card.Colors[0].RGB}" FontSize="24"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </StackPanel>
         </Grid>
     </StackPanel>
 </Page>
