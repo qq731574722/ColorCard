@@ -56,15 +56,15 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    
-    <StackPanel>
-        <Grid Margin="24,0,24,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock FontSize="28" VerticalAlignment="Center" Text="取色"/>
-            <StackPanel Grid.Row="1">
+
+    <Grid Margin="24,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="28" VerticalAlignment="Center" Text="取色" Margin="0,0,0,10"/>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="0,0,24,0">
                 <!-- 色卡展示部分 -->
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
@@ -82,19 +82,19 @@
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[3].RGB}" Margin="0,0,10,10"/>
-                                <TextBlock Text="{x:Bind card.Colors[3].RGB}" FontSize="24"/>
+                                    <TextBlock Text="{x:Bind card.Colors[3].RGB}" FontSize="24"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[2].RGB}" Margin="0,0,10,10"/>
-                                <TextBlock Text="{x:Bind card.Colors[2].RGB}" FontSize="24"/>
+                                    <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[2].RGB}" Margin="0,0,10,10"/>
+                                    <TextBlock Text="{x:Bind card.Colors[2].RGB}" FontSize="24"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[1].RGB}" Margin="0,0,10,10"/>
-                                <TextBlock Text="{x:Bind card.Colors[1].RGB}" FontSize="24"/>
+                                    <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[1].RGB}" Margin="0,0,10,10"/>
+                                    <TextBlock Text="{x:Bind card.Colors[1].RGB}" FontSize="24"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[0].RGB}" Margin="0,0,10,10"/>
-                                <TextBlock Text="{x:Bind card.Colors[0].RGB}" FontSize="24"/>
+                                    <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[0].RGB}" Margin="0,0,10,10"/>
+                                    <TextBlock Text="{x:Bind card.Colors[0].RGB}" FontSize="24"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
@@ -108,11 +108,13 @@
                         <TextBlock>5色</TextBlock>
                         <TextBlock>6色</TextBlock>
                     </GridView>
-                    <Button Content="保存色卡" Margin="225,0,0,0"></Button>
+                    <Button Margin="205,0,0,0" Width="100">
+                        保存色卡
+                    </Button>
                 </StackPanel>
-                
+
                 <!-- 取色部分 -->
-                <Button Click="Button_Click" BorderThickness="0" Padding="0">
+                <Button Click="Button_Click" BorderThickness="0" Padding="0" Name="SelectImageButton">
                     <Canvas Width="450" Height="300">
                         <Rectangle Fill="#177E89" Width="450" Height="300"></Rectangle>
                         <Viewbox MaxHeight="100" Canvas.Top="100" Canvas.Left="175">
@@ -120,7 +122,19 @@
                         </Viewbox>
                     </Canvas>
                 </Button>
+                <Button Visibility="Collapsed" 
+                        Name="ReSelectImageButton"
+                        Click="Button_Click" 
+                        Padding="0" 
+                        BorderThickness="0" 
+                        Margin="0,0,5,0" 
+                        Background="Transparent" 
+                        FocusVisualPrimaryBrush="Transparent" 
+                        FocusVisualSecondaryBrush="#00000000" 
+                        Foreground="#01FFFFFF">
+                    <Image Name="Img" />
+                </Button>
             </StackPanel>
-        </Grid>
-    </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Page>
