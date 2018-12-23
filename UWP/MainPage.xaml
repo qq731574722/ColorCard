@@ -13,7 +13,6 @@
                         OpenPaneLength="150"
                         Loaded="nvSample_Loaded"
                         ItemInvoked="nvSample_ItemInvoked"
-                        IsBackButtonVisible="Auto"
                         BackRequested="nvSample_BackRequested">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="HomePageItem"      Icon="Home"         Content="色卡" Tag="HomePage"     />

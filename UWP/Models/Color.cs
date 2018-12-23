@@ -16,5 +16,11 @@ namespace UWP.Models
     {
         public string RGB { get; set; }
         public string ARGB { get; set; }
+        public static Color getTestColor()
+        {
+
+            Color color = new Color() { RGB = "#00FF00" };
+            return color;
+        }
     }
 }

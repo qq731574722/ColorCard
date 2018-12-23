@@ -122,7 +122,7 @@
                         </Viewbox>
                     </Canvas>
                 </Button>
-                <Button Visibility="Collapsed" 
+                <Button Visibility="Collapsed"
                         Name="ReSelectImageButton"
                         Click="Button_Click" 
                         Padding="0" 
@@ -132,7 +132,7 @@
                         FocusVisualPrimaryBrush="Transparent" 
                         FocusVisualSecondaryBrush="#00000000" 
                         Foreground="#01FFFFFF">
-                    <Image Name="Img" />
+                    <Image Name="Img" Stretch="UniformToFill"/>
                 </Button>
             </StackPanel>
         </ScrollViewer>

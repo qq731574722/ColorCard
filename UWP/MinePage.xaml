@@ -6,8 +6,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:data="using:UWP.Models"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    
+    <Page.Resources>
+        <ControlTemplate x:Key="ColorPickerTemplate" TargetType="Thumb">
+            <Canvas>
+                <Polyline Fill="White" Points="0,0,0,24,12,30,24,24,24,0"/>
+                <Rectangle Canvas.Left="2" Canvas.Top="2" Width="20" Height="20" Fill="#00FF00"></Rectangle>
+            </Canvas>
+        </ControlTemplate>
+    </Page.Resources>
+    
+    
     <StackPanel>
         <Grid Margin="24,0,24,0">
             <Grid.ColumnDefinitions>
@@ -15,12 +26,39 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock FontSize="28" VerticalAlignment="Center" Text="我的"/>
+            <TextBlock FontSize="28" VerticalAlignment="Center" Text="{Binding Path=Color1,Mode=TwoWay}"/>
             <AutoSuggestBox QueryIcon="Find"
                             Grid.Column="1"
                             HorizontalAlignment="Right" 
                             VerticalAlignment="Center"
                             MinWidth="150"/>
+        </Grid>
 
+        <Grid Margin="20">
+            <Image Name="img" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="None"></Image>
+            <Canvas>
+                <Thumb Canvas.Left="100" 
+                       Canvas.Top="100" 
+                       Canvas.ZIndex="99"  
+                       DragDelta="Thumb_DragDelta">
+                    <Thumb.Template>
+                        <ControlTemplate>
+                            <Canvas>
+                                <Polyline Fill="White"
+                                          Points="0,0,0,24,12,30,24,24,24,0"/>
+                                <Rectangle Canvas.Left="2" Canvas.Top="2" Width="20" Height="20" Fill="{Binding Path=Color1,Mode=TwoWay}"></Rectangle>
+                            </Canvas>
+                        </ControlTemplate>
+                    </Thumb.Template>
+                </Thumb>
+                <Thumb Canvas.Left="200" 
+                       Canvas.Top="100" 
+                       Canvas.ZIndex="99"  
+                       DragDelta="Thumb_DragDelta" 
+                       
+                       Template="{StaticResource ColorPickerTemplate}">
+                </Thumb>
+            </Canvas>
         </Grid>
     </StackPanel>
 </Page>
