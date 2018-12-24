@@ -26,7 +26,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock FontSize="28" VerticalAlignment="Center" Text="我的"/>
-            <TextBlock FontSize="28" VerticalAlignment="Center" Text="{Binding Path=Color1,Mode=TwoWay}"/>
+            <!--<TextBlock FontSize="28" VerticalAlignment="Center" Text="{Binding Path=Color1,Mode=TwoWay}"/>-->
             <AutoSuggestBox QueryIcon="Find"
                             Grid.Column="1"
                             HorizontalAlignment="Right" 
@@ -34,8 +34,8 @@
                             MinWidth="150"/>
         </Grid>
 
-        <Grid Margin="20">
-            <Image Name="img" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="None"></Image>
+        <Grid Name="PickAreaGrid" Margin="20">
+            <Image Name="img" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Canvas>
                 <Thumb Canvas.Left="100" 
                        Canvas.Top="100" 

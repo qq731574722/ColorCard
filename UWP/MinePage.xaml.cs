@@ -61,13 +61,8 @@ namespace UWP
         public MinePage()
         {
             this.InitializeComponent();
-            Color1 = "#00FFFF";
-            DataContext = this;
-            var uri = new System.Uri("ms-appx:///Assets/partially-cloudy.png");
-            _image=new BitmapImage();
-            _image.UriSource = uri;
-            img.Source = _image;
-            BitmapImageConveter();
+            PageLoaded();
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -84,18 +79,31 @@ namespace UWP
             double posY = Canvas.GetTop(thumb) + e.VerticalChange;
             Canvas.SetLeft(thumb, posX);
             Canvas.SetTop(thumb, posY);
-            /*
-            if(image==null)
-                image = await BitmapFactory.New(1, 1).FromContent(Image.UriSource); //我上面说的如何把 BitmapImage 转 WriteableBitmapEx
-                */
-            Color color = image.GetPixel((int)posX+12, (int)posY+30);
-
+            int pixelX = ConvertPosToPixel((int)posX + 12);
+            int pixelY = ConvertPosToPixel((int)posY + 30);
+            Color color = image.GetPixel(pixelX,pixelY);
             Color1 = color.ToString();
-
         }
-        private async void BitmapImageConveter()
+        private async void PageLoaded()
         {
-            image = await BitmapFactory.New(1, 1).FromContent(Image.UriSource); //我上面说的如何把 BitmapImage 转 WriteableBitmapEx
+            Color1 = "#00FFFF";
+            DataContext = this;
+            var uri = new System.Uri("ms-appx:///Assets/Sample.jpg");
+            _image = new BitmapImage();
+            _image.UriSource = uri;
+            img.Source = _image;
+#pragma warning disable CS0618 // 类型或成员已过时
+            image = await BitmapFactory.New(1, 1).FromContent(Image.UriSource); //把 BitmapImage 转 WriteableBitmapEx
+#pragma warning restore CS0618 // 类型或成员已过时
+            if (image.PixelWidth < PickAreaGrid.RenderSize.Width)
+                img.Stretch = Stretch.None;
+        }
+
+        /* 将坐标转换为图片上的像素位置 */
+        private int ConvertPosToPixel(double pos)
+        {
+            double scale = _image.PixelWidth / PickAreaGrid.RenderSize.Width;
+            return (int)(pos*scale);
         }
     }
 }
