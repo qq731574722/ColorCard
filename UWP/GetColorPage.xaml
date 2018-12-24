@@ -62,7 +62,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock FontSize="28" VerticalAlignment="Center" Text="取色" Margin="0,0,0,10"/>
+        <TextBlock FontSize="28" VerticalAlignment="Center" Text="{Binding Path=Color0, Mode=TwoWay}" Margin="0,0,0,10"/>
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="0,0,24,0">
                 <!-- 色卡展示部分 -->
@@ -73,9 +73,9 @@
                     </Grid.ColumnDefinitions>
 
                     <ContentControl x:Name="CardItem" 
-                                    Content="{x:Bind card}">
+                                    Content="{x:Bind card}"/>
 
-                    </ContentControl>
+
 
                     <Grid Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
@@ -133,10 +133,29 @@
                         FocusVisualSecondaryBrush="#00000000" 
                         Foreground="#01FFFFFF">
                     <Grid Name="PickAreaGrid">
+                        <!--图片-->
                         <Image Name="Img" MinHeight="100" MinWidth="100"/>
-                        
+                        <!--取色器-->
+                        <Canvas>
+                            <Thumb Canvas.Left="20" 
+                                   Canvas.Top="20" 
+                                   Canvas.ZIndex="99"  
+                                   DragDelta="Thumb_DragDelta">
+                                <Thumb.Template>
+                                    <ControlTemplate>
+                                        <Canvas>
+                                            <Polyline Fill="White"
+                                          Points="0,0,0,24,12,30,24,24,24,0"/>
+                                            <Rectangle Canvas.Left="2" Canvas.Top="2" Width="20" Height="20" Fill="{Binding Path=Color0,Mode=TwoWay}"></Rectangle>
+                                        </Canvas>
+                                    </ControlTemplate>
+                                </Thumb.Template>
+                            </Thumb>
+                        </Canvas>
                     </Grid>
                 </Button>
+                <Button Click="Button_Click_1">选取图片</Button>
+                <Image Name="MyImage"></Image>
             </StackPanel>
         </ScrollViewer>
     </Grid>

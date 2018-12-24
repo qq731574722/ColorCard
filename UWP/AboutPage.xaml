@@ -20,6 +20,8 @@
                     <TextBlock FontSize="14" Text="v1.0.0 by Jason" VerticalAlignment="Bottom" Margin="24,0,0,0"/>
                 </StackPanel>
             </Grid>
+            <Button Click="Button_Click">选取图片</Button>
+            <Image Name="MyImage"></Image>
         </StackPanel>
     </Grid>
 </Page>
