@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UWP.Models;
 using Windows.Foundation;
@@ -27,6 +29,19 @@ namespace UWP
     /// </summary>
     public sealed partial class GetColorPage : Page
     {
+        private BitmapImage _image;
+        public BitmapImage Image
+        {
+            set
+            {
+                _image = value;
+                OnPropertyChanged();
+            }
+            get
+            {
+                return _image;
+            }
+        }
         private Card card{ get; set; }
         public GetColorPage()
         {
@@ -50,7 +65,7 @@ namespace UWP
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            //点击按钮选择图片
+            //点击按钮选择图片并显示
             var picker = new FileOpenPicker();
             picker.FileTypeFilter.Add(".png");
             picker.FileTypeFilter.Add(".jpg");
@@ -63,9 +78,37 @@ namespace UWP
                 BitmapImage bi = new BitmapImage();
                 await bi.SetSourceAsync(ir);
                 Img.Source = bi;
+                
+                /*  自适应图片大小 */ 
+                if(bi.PixelWidth<= 450)
+                {
+                    Img.MaxWidth = 450;
+                    Img.Stretch = Stretch.Uniform;
+                }
+                else if(bi.PixelWidth<PickAreaGrid.RenderSize.Width)
+                {
+                    Img.MaxWidth = int.MaxValue;
+                    Img.Stretch = Stretch.None;
+                }
+                else
+                {
+                    Img.MaxWidth = int.MaxValue;
+                    Img.Stretch = Stretch.Uniform;
+                }
+
                 SelectImageButton.Visibility = Visibility.Collapsed;
                 ReSelectImageButton.Visibility = Visibility.Visible;
             }
         }
+
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 }

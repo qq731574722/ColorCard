@@ -29,8 +29,8 @@ namespace UWP
     public sealed partial class MinePage : INotifyPropertyChanged
     {
 
-        private BitmapImage _image;
         WriteableBitmap image;
+        private BitmapImage _image;
         public BitmapImage Image
         {
             set
@@ -99,7 +99,7 @@ namespace UWP
                 img.Stretch = Stretch.None;
         }
 
-        /* 将坐标转换为图片上的像素位置 */
+        /* 计算缩放比将坐标转换为图片上的像素 */
         private int ConvertPosToPixel(double pos)
         {
             double scale = _image.PixelWidth / PickAreaGrid.RenderSize.Width;

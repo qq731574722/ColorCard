@@ -132,7 +132,10 @@
                         FocusVisualPrimaryBrush="Transparent" 
                         FocusVisualSecondaryBrush="#00000000" 
                         Foreground="#01FFFFFF">
-                    <Image Name="Img" Stretch="UniformToFill"/>
+                    <Grid Name="PickAreaGrid">
+                        <Image Name="Img" MinHeight="100" MinWidth="100"/>
+                        
+                    </Grid>
                 </Button>
             </StackPanel>
         </ScrollViewer>
