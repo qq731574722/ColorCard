@@ -129,7 +129,7 @@
                         Foreground="#01FFFFFF">
                     <Grid Name="PickAreaGrid">
                         <!--图片-->
-                        <Image Name="Img" MinHeight="100" MinWidth="450"/>
+                        <Image Name="Img" MinHeight="100" MinWidth="450" SizeChanged="Img_SizeChanged"/>
                         <!--取色器-->
                         <Canvas>
                             <Thumb Name="Picker0" 
