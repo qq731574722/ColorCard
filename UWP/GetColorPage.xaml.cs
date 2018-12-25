@@ -192,16 +192,14 @@ namespace UWP
             if (posY >= 0 && posY <= PickAreaGrid.RenderSize.Height - 30)
                 Canvas.SetTop(thumb, posY);
 
-            
-            //int pixelX = ConvertPosToPixel((int)posX + 12);
-            //int pixelY = ConvertPosToPixel((int)posY + 30);
-            //var k = (pixelY * decoder.PixelWidth + pixelX) * 4;
-            //Windows.UI.Color color = Windows.UI.Color.FromArgb(colorData[k + 3],colorData[k + 2], colorData[k + 1], colorData[k + 0]);
-            ////Color0 = color.R.ToString() + color.G.ToString() + color.B.ToString();
-            ////Color0 = Image.GetPixel(pixelX, pixelY).ToString();
-            Color0 = GetPosRGB(posX+12, posY+30);
-            
-            //System.Diagnostics.Debug.WriteLine(Color0);
+            if (thumb.Equals(Picker0))
+                Color0 = GetPosRGB(posX + 12, posY + 30);
+            if (thumb.Equals(Picker1))
+                Color1 = GetPosRGB(posX + 12, posY + 30);
+            if (thumb.Equals(Picker2))
+                Color2 = GetPosRGB(posX + 12, posY + 30);
+            if (thumb.Equals(Picker3))
+                Color3 = GetPosRGB(posX + 12, posY + 30);
         }
 
         /* 计算缩放比将坐标转换为图片上的像素 */

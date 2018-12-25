@@ -10,51 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
-        <!--色卡样式：靶心-->
-        <DataTemplate x:Key="CardTemplate_Bullseye" x:DataType="data:Card">
-            <Grid>
-                <Canvas Width="200" Height="250">
-                    <Canvas.Clip>
-                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
-                    </Canvas.Clip>
-
-                    <Ellipse Height="400" Width="400" Fill="{x:Bind Colors[0].RGB,Mode=TwoWay}" Canvas.Left="-100" Canvas.Top="-100"/>
-                    <Ellipse Height="300" Width="300" Fill="{x:Bind Colors[1].RGB}" Canvas.Left="-74" Canvas.Top="33"/>
-                    <Ellipse Height="250" Width="250" Fill="{x:Bind Colors[2].RGB}" Canvas.Top="100" Canvas.Left="-70" />
-                    <Ellipse Height="130" Width="130" Fill="{x:Bind Colors[3].RGB}" Canvas.Top="164" Canvas.Left="-25"/>
-                </Canvas>
-            </Grid>
-        </DataTemplate>
-
-        <!--色卡样式：竖条纹-->
-        <DataTemplate x:Key="CardTemplate_Vertical" x:DataType="data:Card">
-            <Grid>
-                <Canvas Width="200" Height="250">
-                    <Canvas.Clip>
-                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
-                    </Canvas.Clip>
-                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[0].RGB}" Canvas.Left="150"/>
-                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[1].RGB}" Canvas.Left="100"/>
-                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[2].RGB}" Canvas.Left="50"/>
-                    <Rectangle Height="250" Width="50" Fill="{x:Bind Colors[3].RGB}" Canvas.Left="0" />
-                </Canvas>
-            </Grid>
-        </DataTemplate>
-
-        <!--色卡样式：横条纹-->
-        <DataTemplate x:Key="CardTemplate_Horizontal" x:DataType="data:Card">
-            <Grid>
-                <Canvas Width="200" Height="250">
-                    <Canvas.Clip>
-                        <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
-                    </Canvas.Clip>
-                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[0].RGB}" Canvas.Top="0"/>
-                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[1].RGB}" Canvas.Top="62.5"/>
-                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[2].RGB}" Canvas.Top="125"/>
-                    <Rectangle Height="62.5" Width="200" Fill="{x:Bind Colors[3].RGB}" Canvas.Top="187.5"/>
-                </Canvas>
-            </Grid>
-        </DataTemplate>
+        
     </Page.Resources>
 
     <Grid Margin="24,0,0,0">
@@ -173,13 +129,13 @@
                         Foreground="#01FFFFFF">
                     <Grid Name="PickAreaGrid">
                         <!--图片-->
-                        <Image Name="Img" MinHeight="100" MinWidth="100"/>
+                        <Image Name="Img" MinHeight="100" MinWidth="450"/>
                         <!--取色器-->
                         <Canvas>
                             <Thumb Name="Picker0" 
                                    Canvas.Left="20" 
                                    Canvas.Top="20" 
-                                   Canvas.ZIndex="99"  
+                                   Canvas.ZIndex="0"  
                                    DragDelta="Thumb_DragDelta"
                                    DragCompleted="Thumb_DragCompleted">
                                 <Thumb.Template>
@@ -188,6 +144,54 @@
                                             <Polyline Fill="White"
                                           Points="0,0,0,24,12,30,24,24,24,0"/>
                                             <Rectangle Canvas.Left="2" Canvas.Top="2" Width="20" Height="20" Fill="{Binding Path=Color0,Mode=TwoWay}"></Rectangle>
+                                        </Canvas>
+                                    </ControlTemplate>
+                                </Thumb.Template>
+                            </Thumb>
+                            <Thumb Name="Picker1" 
+                                   Canvas.Left="60" 
+                                   Canvas.Top="20" 
+                                   Canvas.ZIndex="1"  
+                                   DragDelta="Thumb_DragDelta"
+                                   DragCompleted="Thumb_DragCompleted">
+                                <Thumb.Template>
+                                    <ControlTemplate>
+                                        <Canvas>
+                                            <Polyline Fill="White"
+                                          Points="0,0,0,24,12,30,24,24,24,0"/>
+                                            <Rectangle Canvas.Left="2" Canvas.Top="2" Width="20" Height="20" Fill="{Binding Path=Color1,Mode=TwoWay}"></Rectangle>
+                                        </Canvas>
+                                    </ControlTemplate>
+                                </Thumb.Template>
+                            </Thumb>
+                            <Thumb Name="Picker2" 
+                                   Canvas.Left="100" 
+                                   Canvas.Top="20" 
+                                   Canvas.ZIndex="2"  
+                                   DragDelta="Thumb_DragDelta"
+                                   DragCompleted="Thumb_DragCompleted">
+                                <Thumb.Template>
+                                    <ControlTemplate>
+                                        <Canvas>
+                                            <Polyline Fill="White"
+                                          Points="0,0,0,24,12,30,24,24,24,0"/>
+                                            <Rectangle Canvas.Left="2" Canvas.Top="2" Width="20" Height="20" Fill="{Binding Path=Color2,Mode=TwoWay}"></Rectangle>
+                                        </Canvas>
+                                    </ControlTemplate>
+                                </Thumb.Template>
+                            </Thumb>
+                            <Thumb Name="Picker3" 
+                                   Canvas.Left="140" 
+                                   Canvas.Top="20" 
+                                   Canvas.ZIndex="3"
+                                   DragDelta="Thumb_DragDelta"
+                                   DragCompleted="Thumb_DragCompleted">
+                                <Thumb.Template>
+                                    <ControlTemplate>
+                                        <Canvas>
+                                            <Polyline Fill="White"
+                                          Points="0,0,0,24,12,30,24,24,24,0"/>
+                                            <Rectangle Canvas.Left="2" Canvas.Top="2" Width="20" Height="20" Fill="{Binding Path=Color3,Mode=TwoWay}"></Rectangle>
                                         </Canvas>
                                     </ControlTemplate>
                                 </Thumb.Template>
