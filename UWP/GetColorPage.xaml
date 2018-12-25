@@ -62,7 +62,8 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock FontSize="28" VerticalAlignment="Center" Text="{Binding Path=Color0, Mode=TwoWay}" Margin="0,0,0,10"/>
+        <TextBlock FontSize="28" VerticalAlignment="Center" Text="取色" Margin="0,0,0,10"/>
+        <TextBlock FontSize="28" VerticalAlignment="Center" Text="{Binding Path=Color0,Mode=TwoWay}"/>
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="0,0,24,0">
                 <!-- 色卡展示部分 -->
@@ -154,8 +155,6 @@
                         </Canvas>
                     </Grid>
                 </Button>
-                <Button Click="Button_Click_1">选取图片</Button>
-                <Image Name="MyImage"></Image>
             </StackPanel>
         </ScrollViewer>
     </Grid>

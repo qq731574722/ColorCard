@@ -28,7 +28,7 @@ namespace UWP
     /// <summary>
     /// 取色
     /// </summary>
-    public sealed partial class GetColorPage : Page
+    public sealed partial class GetColorPage : INotifyPropertyChanged
     {
         private static WriteableBitmap image;
         private byte[] colorData;
@@ -65,7 +65,7 @@ namespace UWP
                     break;
             }
             DataContext = this;
-            Color0 = "#FF00FF00";
+            //Color0 = "#00FF00";
         }
 
 
@@ -86,7 +86,7 @@ namespace UWP
                 Img.Source = image;
                 var pixelData = await decoder.GetPixelDataAsync();
                 colorData = pixelData.DetachPixelData();
-                System.Diagnostics.Debug.WriteLine(colorData[0].ToString());
+                //System.Diagnostics.Debug.WriteLine(colorData[0].ToString());
                     
                 /*  自适应图片大小 */
                 if (image.PixelWidth <= 450)
@@ -104,8 +104,8 @@ namespace UWP
                     Img.MaxWidth = int.MaxValue;
                     Img.Stretch = Stretch.Uniform;
                 }
-                //Color0 = image.GetPixel(1, 1).ToString();
-                
+                Color0 = Windows.UI.Color.FromArgb(0xFF, colorData[0], colorData[1], colorData[2]).ToString();
+                card.Colors[0].RGB = Color0;
                 ReSelectImageButton.Visibility = Visibility.Visible;
                 SelectImageButton.Visibility = Visibility.Collapsed;
             }
@@ -184,9 +184,11 @@ namespace UWP
             int pixelX = ConvertPosToPixel((int)posX + 12);
             int pixelY = ConvertPosToPixel((int)posY + 30);
             var k = (pixelX * (int)image.PixelWidth + pixelY) * 3;
-            Windows.UI.Color color = Windows.UI.Color.FromArgb(255, colorData[k + 0], colorData[k + 1], colorData[k + 2]);
+            Windows.UI.Color color = Windows.UI.Color.FromArgb(0xFF, colorData[k + 0], colorData[k + 1], colorData[k + 2]);
             
-            Color0 = color.ToString();
+            //Color0 = color.ToString();
+            Color0 = Image.GetPixel(pixelX, pixelY).ToString();
+            card.Colors[0].RGB = Color0;
             System.Diagnostics.Debug.WriteLine(Color0);
         }
 
@@ -195,26 +197,6 @@ namespace UWP
         {
             double scale = image.PixelWidth / PickAreaGrid.RenderSize.Width;
             return (int)(pos * scale);
-        }
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            var filePicker = new FileOpenPicker();
-            filePicker.FileTypeFilter.Add(".jpg");
-
-            var result = await filePicker.PickSingleFileAsync();
-
-            if (result != null)
-            {
-                using (IRandomAccessStream stream = await result.OpenAsync(FileAccessMode.Read))
-                {
-                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-                    image = new WriteableBitmap((int)decoder.PixelWidth, (int)decoder.PixelHeight);
-                    image.SetSource(stream);
-
-                    // show the image in the UI if you want.
-                    MyImage.Source = image;
-                }
-            }
         }
     }
 }
