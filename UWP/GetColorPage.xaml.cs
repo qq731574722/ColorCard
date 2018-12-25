@@ -52,19 +52,23 @@ namespace UWP
         {
             this.InitializeComponent();
             card = CardManager.GetCards()[0];
-
+            
             switch (Card.Style)
             {
                 case CardStyle.Bullseye:
-                    CardItem.ContentTemplate = this.Resources["CardTemplate_Bullseye"] as DataTemplate;
+                    CardItem_Bullseye.Visibility = Visibility.Visible;
                     break;
                 case CardStyle.Vertical:
-                    CardItem.ContentTemplate = this.Resources["CardTemplate_Vertical"] as DataTemplate;
+                    CardItem_Vertical.Visibility = Visibility.Visible;
                     break;
                 case CardStyle.Horizontal:
-                    CardItem.ContentTemplate = this.Resources["CardTemplate_Horizontal"] as DataTemplate;
+                    CardItem_Horizontal.Visibility = Visibility.Visible;
                     break;
             }
+            Color0 = card.Colors[0].RGB;
+            Color1 = card.Colors[1].RGB;
+            Color2 = card.Colors[2].RGB;
+            Color3 = card.Colors[3].RGB;
             DataContext = this;
         }
 
@@ -104,8 +108,11 @@ namespace UWP
                     Img.MaxWidth = int.MaxValue;
                     Img.Stretch = Stretch.Uniform;
                 }
-                Color0 = Windows.UI.Color.FromArgb(0xFF, colorData[0], colorData[1], colorData[2]).ToString();
-                card.Colors[0].RGB = Color0;
+                //Color0 = GetPosRGB(Canvas.GetLeft(Picker0)+12, Canvas.GetTop(Picker0)+30);
+                
+                //Color0 = GetPosRGB(32.0, 50.0);
+                //DragDeltaEventArgs dragDeltaEventArgs = new DragDeltaEventArgs(0, 0);
+                //Thumb_DragDelta(Picker0, dragDeltaEventArgs);
                 ReSelectImageButton.Visibility = Visibility.Visible;
                 SelectImageButton.Visibility = Visibility.Collapsed;
             }
@@ -170,6 +177,11 @@ namespace UWP
             }
         }
 
+        private void Thumb_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            card.Colors[0].RGB = Color0;
+        }
+
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             UIElement thumb = (UIElement)sender;
@@ -181,14 +193,14 @@ namespace UWP
                 Canvas.SetTop(thumb, posY);
 
             
-            int pixelX = ConvertPosToPixel((int)posX + 12);
-            int pixelY = ConvertPosToPixel((int)posY + 30);
-            var k = (pixelY * decoder.PixelWidth + pixelX) * 4;
-            Windows.UI.Color color = Windows.UI.Color.FromArgb(colorData[k + 3],colorData[k + 2], colorData[k + 1], colorData[k + 0]);
+            //int pixelX = ConvertPosToPixel((int)posX + 12);
+            //int pixelY = ConvertPosToPixel((int)posY + 30);
+            //var k = (pixelY * decoder.PixelWidth + pixelX) * 4;
+            //Windows.UI.Color color = Windows.UI.Color.FromArgb(colorData[k + 3],colorData[k + 2], colorData[k + 1], colorData[k + 0]);
+            ////Color0 = color.R.ToString() + color.G.ToString() + color.B.ToString();
+            ////Color0 = Image.GetPixel(pixelX, pixelY).ToString();
+            Color0 = GetPosRGB(posX+12, posY+30);
             
-            Color0 = color.ToString();
-            //Color0 = Image.GetPixel(pixelX, pixelY).ToString();
-            card.Colors[0].RGB = Color0;
             //System.Diagnostics.Debug.WriteLine(Color0);
         }
 
@@ -197,6 +209,21 @@ namespace UWP
         {
             double scale = image.PixelWidth / PickAreaGrid.RenderSize.Width;
             return (int)(pos * scale);
+        }
+        private string ARGB2RGB(string ARGB)
+        {
+            string RGB = "#" + ARGB.Substring(3);
+            return RGB;
+        }
+        private string GetPosRGB(double posX,double posY)
+        {
+            int pixelX = ConvertPosToPixel((int)posX);
+            int pixelY = ConvertPosToPixel((int)posY);
+            var k = (pixelY * decoder.PixelWidth + pixelX) * 4;
+            Windows.UI.Color color=new Windows.UI.Color();
+            if (k+4<=colorData.Length)
+                color = Windows.UI.Color.FromArgb(colorData[k + 3], colorData[k + 2], colorData[k + 1], colorData[k + 0]);
+            return ARGB2RGB(color.ToString());
         }
     }
 }

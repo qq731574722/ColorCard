@@ -18,7 +18,7 @@
                         <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
                     </Canvas.Clip>
 
-                    <Ellipse Height="400" Width="400" Fill="{x:Bind Colors[0].RGB}" Canvas.Left="-100" Canvas.Top="-100"/>
+                    <Ellipse Height="400" Width="400" Fill="{x:Bind Colors[0].RGB,Mode=TwoWay}" Canvas.Left="-100" Canvas.Top="-100"/>
                     <Ellipse Height="300" Width="300" Fill="{x:Bind Colors[1].RGB}" Canvas.Left="-74" Canvas.Top="33"/>
                     <Ellipse Height="250" Width="250" Fill="{x:Bind Colors[2].RGB}" Canvas.Top="100" Canvas.Left="-70" />
                     <Ellipse Height="130" Width="130" Fill="{x:Bind Colors[3].RGB}" Canvas.Top="164" Canvas.Left="-25"/>
@@ -63,7 +63,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock FontSize="28" VerticalAlignment="Center" Text="取色" Margin="0,0,0,10"/>
-        <TextBlock FontSize="28" VerticalAlignment="Center" Text="{Binding Path=Color0,Mode=TwoWay}"/>
+        <!--<TextBlock FontSize="28" VerticalAlignment="Center" Text="{Binding Path=Color0,Mode=TwoWay}"/>-->
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="0,0,24,0">
                 <!-- 色卡展示部分 -->
@@ -72,30 +72,68 @@
                         <ColumnDefinition Width="250"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-
-                    <ContentControl x:Name="CardItem" 
-                                    Content="{x:Bind card}"/>
-
+                    <!-- 靶心样式 -->
+                    <ContentControl x:Name="CardItem_Bullseye" Visibility="Collapsed">
+                        <Grid>
+                            <Canvas Width="200" Height="250">
+                                <Canvas.Clip>
+                                    <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                                </Canvas.Clip>
+                                <Ellipse Height="400" Width="400" Fill="{Binding Path=Color0,Mode=TwoWay}" Canvas.Left="-100" Canvas.Top="-100"/>
+                                <Ellipse Height="300" Width="300" Fill="{Binding Path=Color1,Mode=TwoWay}" Canvas.Left="-74" Canvas.Top="33"/>
+                                <Ellipse Height="250" Width="250" Fill="{Binding Path=Color2,Mode=TwoWay}" Canvas.Top="100" Canvas.Left="-70" />
+                                <Ellipse Height="130" Width="130" Fill="{Binding Path=Color3,Mode=TwoWay}" Canvas.Top="164" Canvas.Left="-25"/>
+                            </Canvas>
+                        </Grid>
+                    </ContentControl>
+                    <!-- 竖条纹样式 -->
+                    <ContentControl x:Name="CardItem_Vertical" Visibility="Collapsed">
+                        <Grid>
+                            <Canvas Width="200" Height="250">
+                                <Canvas.Clip>
+                                    <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                                </Canvas.Clip>
+                                <Rectangle Height="250" Width="50" Fill="{Binding Path=Color0,Mode=TwoWay}" Canvas.Left="0"/>
+                                <Rectangle Height="250" Width="50" Fill="{Binding Path=Color1,Mode=TwoWay}" Canvas.Left="50"/>
+                                <Rectangle Height="250" Width="50" Fill="{Binding Path=Color2,Mode=TwoWay}" Canvas.Left="100"/>
+                                <Rectangle Height="250" Width="50" Fill="{Binding Path=Color3,Mode=TwoWay}" Canvas.Left="150" />
+                            </Canvas>
+                        </Grid>
+                    </ContentControl>
+                    <!-- 横条纹样式 -->
+                    <ContentControl x:Name="CardItem_Horizontal" Visibility="Collapsed">
+                        <Grid>
+                            <Canvas Width="200" Height="250">
+                                <Canvas.Clip>
+                                    <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
+                                </Canvas.Clip>
+                                <Rectangle Height="62.5" Width="200" Fill="{Binding Path=Color0,Mode=TwoWay}" Canvas.Top="0"/>
+                                <Rectangle Height="62.5" Width="200" Fill="{Binding Path=Color1,Mode=TwoWay}" Canvas.Top="62.5"/>
+                                <Rectangle Height="62.5" Width="200" Fill="{Binding Path=Color2,Mode=TwoWay}" Canvas.Top="125"/>
+                                <Rectangle Height="62.5" Width="200" Fill="{Binding Path=Color3,Mode=TwoWay}" Canvas.Top="187.5"/>
+                            </Canvas>
+                        </Grid>
+                    </ContentControl>
 
 
                     <Grid Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[3].RGB}" Margin="0,0,10,10"/>
-                                    <TextBlock Text="{x:Bind card.Colors[3].RGB}" FontSize="24"/>
+                                    <Rectangle Width="40" Height="40" Fill="{Binding Path=Color0,Mode=TwoWay}" Margin="0,0,10,10"/>
+                                    <TextBlock Text="{Binding Path=Color0,Mode=TwoWay}" FontSize="24"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[2].RGB}" Margin="0,0,10,10"/>
-                                    <TextBlock Text="{x:Bind card.Colors[2].RGB}" FontSize="24"/>
+                                    <Rectangle Width="40" Height="40" Fill="{Binding Path=Color1,Mode=TwoWay}" Margin="0,0,10,10"/>
+                                    <TextBlock Text="{Binding Path=Color1,Mode=TwoWay}" FontSize="24"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[1].RGB}" Margin="0,0,10,10"/>
-                                    <TextBlock Text="{x:Bind card.Colors[1].RGB}" FontSize="24"/>
+                                    <Rectangle Width="40" Height="40" Fill="{Binding Path=Color2,Mode=TwoWay}" Margin="0,0,10,10"/>
+                                    <TextBlock Text="{Binding Path=Color2,Mode=TwoWay}" FontSize="24"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Rectangle Width="40" Height="40" Fill="{x:Bind card.Colors[0].RGB}" Margin="0,0,10,10"/>
-                                    <TextBlock Text="{x:Bind card.Colors[0].RGB}" FontSize="24"/>
+                                    <Rectangle Width="40" Height="40" Fill="{Binding Path=Color3,Mode=TwoWay}" Margin="0,0,10,10"/>
+                                    <TextBlock Text="{Binding Path=Color3,Mode=TwoWay}" FontSize="24"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
@@ -138,10 +176,12 @@
                         <Image Name="Img" MinHeight="100" MinWidth="100"/>
                         <!--取色器-->
                         <Canvas>
-                            <Thumb Canvas.Left="20" 
+                            <Thumb Name="Picker0" 
+                                   Canvas.Left="20" 
                                    Canvas.Top="20" 
                                    Canvas.ZIndex="99"  
-                                   DragDelta="Thumb_DragDelta">
+                                   DragDelta="Thumb_DragDelta"
+                                   DragCompleted="Thumb_DragCompleted">
                                 <Thumb.Template>
                                     <ControlTemplate>
                                         <Canvas>
