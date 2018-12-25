@@ -31,6 +31,7 @@ namespace UWP
     public sealed partial class GetColorPage : INotifyPropertyChanged
     {
         private static WriteableBitmap image;
+        private BitmapDecoder decoder;
         private byte[] colorData;
         //private BitmapImage bi;
         public  WriteableBitmap Image
@@ -65,7 +66,6 @@ namespace UWP
                     break;
             }
             DataContext = this;
-            //Color0 = "#00FF00";
         }
 
 
@@ -80,11 +80,11 @@ namespace UWP
             if (result != null)
             {
                 var stream = await result.OpenAsync(FileAccessMode.Read);
-                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+                decoder = await BitmapDecoder.CreateAsync(stream);
                 image = new WriteableBitmap((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+                var pixelData = await decoder.GetPixelDataAsync();
                 image.SetSource(stream);
                 Img.Source = image;
-                var pixelData = await decoder.GetPixelDataAsync();
                 colorData = pixelData.DetachPixelData();
                 //System.Diagnostics.Debug.WriteLine(colorData[0].ToString());
                     
@@ -183,13 +183,13 @@ namespace UWP
             
             int pixelX = ConvertPosToPixel((int)posX + 12);
             int pixelY = ConvertPosToPixel((int)posY + 30);
-            var k = (pixelX * (int)image.PixelWidth + pixelY) * 3;
-            Windows.UI.Color color = Windows.UI.Color.FromArgb(0xFF, colorData[k + 0], colorData[k + 1], colorData[k + 2]);
+            var k = (pixelY * decoder.PixelWidth + pixelX) * 4;
+            Windows.UI.Color color = Windows.UI.Color.FromArgb(colorData[k + 3],colorData[k + 2], colorData[k + 1], colorData[k + 0]);
             
-            //Color0 = color.ToString();
-            Color0 = Image.GetPixel(pixelX, pixelY).ToString();
+            Color0 = color.ToString();
+            //Color0 = Image.GetPixel(pixelX, pixelY).ToString();
             card.Colors[0].RGB = Color0;
-            System.Diagnostics.Debug.WriteLine(Color0);
+            //System.Diagnostics.Debug.WriteLine(Color0);
         }
 
         /* 计算缩放比将坐标转换为图片上的像素 */
