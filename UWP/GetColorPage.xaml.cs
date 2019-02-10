@@ -111,9 +111,9 @@ namespace UWP
             UIElement thumb = (UIElement)sender;
             double posX = Canvas.GetLeft(thumb) + e.HorizontalChange;
             double posY = Canvas.GetTop(thumb) + e.VerticalChange;
-            if (posX >= 0 && posX <= PickAreaGrid.RenderSize.Width - 24)
+            if (posX >= -11 && posX <= PickAreaGrid.RenderSize.Width - 12)
                 Canvas.SetLeft(thumb, posX);
-            if (posY >= 0 && posY <= PickAreaGrid.RenderSize.Height - 30)
+            if (posY >= -29 && posY <= PickAreaGrid.RenderSize.Height - 30)
                 Canvas.SetTop(thumb, posY);
             if (thumb.Equals(Picker0))
                 Color0 = GetPosRGB(posX + 12, posY + 30);
@@ -186,7 +186,7 @@ namespace UWP
             int pixelY = ConvertPosToPixel((int)posY);
             var k = (pixelY * decoder.PixelWidth + pixelX) * 4;
             Windows.UI.Color color=new Windows.UI.Color();
-            if (k+4<=colorData.Length)
+            if (k>=0&&k+3<colorData.Length)
                 color = Windows.UI.Color.FromArgb(colorData[k + 3], colorData[k + 2], colorData[k + 1], colorData[k + 0]);
             return ARGB2RGB(color.ToString());
         }

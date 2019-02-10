@@ -45,8 +45,9 @@ namespace UWP
             }
         }
 
-        private async void GridView_ItemClick(object sender, ItemClickEventArgs e)
+        private void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            /*
             Card card = (Card)e.ClickedItem;
             ContentDialog nDialog = new ContentDialog()
             {
@@ -58,6 +59,12 @@ namespace UWP
                 nDialog.Title = "色卡 No." + card.ID;
             Cards.Remove(card);
             await nDialog.ShowAsync();
+            */
+
+            Card card = (Card)e.ClickedItem;
+            Card.ShowingCard = card;
+            //跳转至色卡详情界面
+            Frame.Navigate(typeof(CardDetail));
         }
     }
 }

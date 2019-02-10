@@ -20,7 +20,7 @@
                 <NavigationViewItem x:Name="GetColorPageItem"  Icon="BrowsePhotos" Content="取色" Tag="GetColorPage"     />
                 <NavigationViewItem x:Name="AboutPageItem"     Icon="Contact"      Content="关于" Tag="AboutPage"    />
             </NavigationView.MenuItems>
-            <Frame x:Name="contentFrame"/>
+            <Frame x:Name="contentFrame" Margin="0,40,0,0"/>
         </NavigationView>
     </Grid>
 </Page>

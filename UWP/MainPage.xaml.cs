@@ -8,6 +8,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -39,9 +40,16 @@ namespace UWP
         public MainPage()
         {
             // Hide default title bar.
-            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            coreTitleBar.ExtendViewIntoTitleBar = true;
             this.InitializeComponent();
+            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (s, e) => UpdateAppTitle(s);
+            //var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            //coreTitleBar.ExtendViewIntoTitleBar = true;
+        }
+
+        void UpdateAppTitle(CoreApplicationViewTitleBar coreTitleBar)
+        {
+            var full = (ApplicationView.GetForCurrentView().IsFullScreenMode);
+            var left = 12 + (full ? 0 : coreTitleBar.SystemOverlayLeftInset);
         }
 
         private void nvSample_Loaded(object sender, RoutedEventArgs e)
@@ -90,10 +98,11 @@ namespace UWP
             else if (contentFrame.SourcePageType != null)
             {
                 var item = _pages.FirstOrDefault(p => p.Page == e.SourcePageType);
-
+                /*
                 nvSample.SelectedItem = nvSample.MenuItems
                     .OfType<NavigationViewItem>()
                     .First(n => n.Tag.Equals(item.Tag));
+                    */
             }
         }
     }

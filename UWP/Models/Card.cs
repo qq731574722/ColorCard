@@ -18,13 +18,14 @@ namespace UWP.Models
         public int ColorNum { get; set; }
         public int ID { get; set; }
         public static CardStyle Style { get; set; }
+        public static Card ShowingCard { get; set; }
+        public static List<Card> ColorCards = new List<Card>();
     }
-
     class CardManager
     {
         public static List<Card> GetCards()
         {
-            List<Card> cards = new List<Card>();
+            Card.ColorCards = new List<Card>();
             List<Color> colors1 = new List<Color>
             {
                 new Color { RGB = "#177E89" },
@@ -39,13 +40,13 @@ namespace UWP.Models
                 new Color { RGB = "Green" },
                 new Color { RGB = "Yellow" }
             };
-            cards.Add(new Card { Name = "Colr", Colors = colors1, ColorNum = colors1.Count, ID = 8 });
-            cards.Add(new Card { Name = "Card", Colors = colors1, ColorNum = colors1.Count, ID = 9 });
-            cards.Add(new Card { Colors = colors1, ColorNum = colors1.Count, ID = 10 });
-            cards.Add(new Card { Colors = colors2, ColorNum = colors1.Count, ID = 101 });
-            cards.Add(new Card { Colors = colors2, ColorNum = colors1.Count, ID = 102 });
-            cards.Add(new Card { Colors = colors2, ColorNum = colors1.Count, ID = 103 });
-            return cards;
+            Card.ColorCards.Add(new Card { Name = "Colr", Colors = colors1, ColorNum = colors1.Count, ID = 8 });
+            Card.ColorCards.Add(new Card { Name = "Card", Colors = colors1, ColorNum = colors1.Count, ID = 9 });
+            Card.ColorCards.Add(new Card { Colors = colors1, ColorNum = colors1.Count, ID = 10 });
+            Card.ColorCards.Add(new Card { Colors = colors2, ColorNum = colors1.Count, ID = 101 });
+            Card.ColorCards.Add(new Card { Colors = colors2, ColorNum = colors1.Count, ID = 102 });
+            Card.ColorCards.Add(new Card { Colors = colors2, ColorNum = colors1.Count, ID = 103 });
+            return Card.ColorCards;
         }
     }
 }
