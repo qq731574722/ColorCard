@@ -33,10 +33,10 @@ namespace UWP
     {
         private WriteableBitmap image;
         private BitmapDecoder decoder;
-        
+
         private byte[] colorData;
         //private BitmapImage bi;
-        public  WriteableBitmap Image
+        public WriteableBitmap Image
         {
             set
             {
@@ -54,7 +54,7 @@ namespace UWP
         {
             this.InitializeComponent();
             card = CardManager.GetCards()[0];
-            
+
             switch (Card.Style)
             {
                 case CardStyle.Bullseye:
@@ -97,7 +97,7 @@ namespace UWP
                 SelectImageButton.Visibility = Visibility.Collapsed;
             }
         }
-      
+
         private void Thumb_DragCompleted(object sender, DragCompletedEventArgs e)
         {
             card.Colors[0].RGB = Color0;
@@ -157,7 +157,7 @@ namespace UWP
 
         private void PosChanged(Thumb picker, SizeChangedEventArgs e)
         {
-            
+
             if (e.PreviousSize.Width == 0) return;
             double scaleX = e.NewSize.Width / e.PreviousSize.Width;
             double scaleY = e.NewSize.Height / e.PreviousSize.Height;
@@ -180,28 +180,25 @@ namespace UWP
             string RGB = "#" + ARGB.Substring(3);
             return RGB;
         }
-        private string GetPosRGB(double posX,double posY)
+        private string GetPosRGB(double posX, double posY)
         {
             int pixelX = ConvertPosToPixel((int)posX);
             int pixelY = ConvertPosToPixel((int)posY);
             var k = (pixelY * decoder.PixelWidth + pixelX) * 4;
-            Windows.UI.Color color=new Windows.UI.Color();
-            if (k>=0&&k+3<colorData.Length)
+            Windows.UI.Color color = new Windows.UI.Color();
+            if (k >= 0 && k + 3 < colorData.Length)
                 color = Windows.UI.Color.FromArgb(colorData[k + 3], colorData[k + 2], colorData[k + 1], colorData[k + 0]);
             return ARGB2RGB(color.ToString());
         }
-        private string GetPickerRGB(Thumb picker)
-        {
-            return GetPosRGB(Canvas.GetLeft(picker) + 12, Canvas.GetTop(picker) + 30);
-        }
+        private string GetPickerRGB(Thumb picker) => GetPosRGB(Canvas.GetLeft(picker) + 12, Canvas.GetTop(picker) + 30);
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
-        private string color0,color1,color2,color3;
+
+        private string color0, color1, color2, color3;
         public string Color0
         {
             get { return color0; }

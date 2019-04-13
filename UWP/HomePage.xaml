@@ -112,10 +112,10 @@
                         <Canvas.Clip>
                             <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
                         </Canvas.Clip>
-                        <Ellipse Height="400" Width="400" Fill="#FF177E89" Canvas.Left="-100" Canvas.Top="-100"/>
-                        <Ellipse Height="300" Width="300" Fill="#FF084C61"  Canvas.Left="-74" Canvas.Top="33"/>
-                        <Ellipse Height="250" Width="250" Fill="#FFFFC857" Canvas.Top="100" Canvas.Left="-70" />
-                        <Ellipse Height="130" Width="130" Fill="#FFDB3A34" Canvas.Top="164" Canvas.Left="-25"/>
+                        <Ellipse Height="400" Width="400" Fill="#177E89" Canvas.Left="-100" Canvas.Top="-100"/>
+                        <Ellipse Height="300" Width="300" Fill="#084C61"  Canvas.Left="-74" Canvas.Top="33"/>
+                        <Ellipse Height="250" Width="250" Fill="#FFC857" Canvas.Top="100" Canvas.Left="-70" />
+                        <Ellipse Height="130" Width="130" Fill="#DB3A34" Canvas.Top="164" Canvas.Left="-25"/>
                     </Canvas>
                     <TextBlock FontSize="36" HorizontalAlignment="Center" Text="Colr" Foreground="White" FontWeight="Bold" Opacity="0.5"/>
                     <TextBlock FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="1" Foreground="White" FontWeight="Bold" Margin="5" Opacity="0.5"/>

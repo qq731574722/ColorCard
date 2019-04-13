@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using UWP.Models;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -32,6 +34,20 @@ namespace UWP
                 Title.Text = "色卡";
             else
                 Title.Text = _card.Name;
+            switch (Card.Style)
+            {
+                case CardStyle.Bullseye:
+                    CardItem_Bullseye.Visibility = Visibility.Visible;
+                    break;
+                case CardStyle.Vertical:
+                    CardItem_Vertical.Visibility = Visibility.Visible;
+                    break;
+                case CardStyle.Horizontal:
+                    CardItem_Horizontal.Visibility = Visibility.Visible;
+                    break;
+            }
+            DataContext = this;
         }
+        
     }
 }

@@ -31,25 +31,5 @@ namespace UWP
         {
             this.InitializeComponent();
         }
-        WriteableBitmap bmp;
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var filePicker = new FileOpenPicker();
-            filePicker.FileTypeFilter.Add(".jpg");
-            var result = await filePicker.PickSingleFileAsync();
-
-            if (result != null)
-            {
-                using (IRandomAccessStream stream = await result.OpenAsync(FileAccessMode.Read))
-                {
-                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-                    bmp = new WriteableBitmap((int)decoder.PixelWidth, (int)decoder.PixelHeight);
-                    bmp.SetSource(stream);
-
-                    // show the image in the UI if you want.
-                    MyImage.Source = bmp;
-                }
-            }
-        }
     }
 }

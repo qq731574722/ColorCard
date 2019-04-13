@@ -9,8 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
-            <Grid Margin="24,0,24,0">
+        <StackPanel Margin="20">
+            <Grid Margin="24,0,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
@@ -20,8 +20,25 @@
                     <TextBlock FontSize="14" Text="v1.0.0 by Jason" VerticalAlignment="Bottom" Margin="24,0,0,0"/>
                 </StackPanel>
             </Grid>
-            <Button Click="Button_Click">选取图片</Button>
-            <Image Name="MyImage"></Image>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            <TextBlock Margin="20">
+                色卡是一款为设计师开发的配色工具用于配色工具，用于配色方案的管理。
+                <LineBreak/><LineBreak/>
+                首先，它提供了大量成熟的配色方案，可用于服装、家居等设计场景，供您参考。
+                <LineBreak/>
+                其次，它提供了快捷的相片去色方案，可以生成漂亮的色卡图片，便于分享您的配色创意。
+                <LineBreak/>
+                最后，提供了一个选取颜色的小工具。
+            </TextBlock>
+            <ColorPicker IsAlphaSliderVisible="False" 
+                         IsAlphaEnabled="False" 
+                         HorizontalAlignment="Left"
+                         Grid.Column="1"/>
+            </Grid>
         </StackPanel>
     </Grid>
 </Page>

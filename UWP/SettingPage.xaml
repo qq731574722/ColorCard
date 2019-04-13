@@ -21,7 +21,8 @@
         <Grid Margin="24,0,24,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <!-- Title -->
             <TextBlock VerticalAlignment="Center" FontSize="28" Text="设置" Style="{ThemeResource TitleTextBlockStyle}"/>
@@ -71,6 +72,9 @@
                     </GridViewItem>
                     
                 </GridView>
+                
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
                 
             </StackPanel>
         </Grid>
