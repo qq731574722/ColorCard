@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
+using System.Threading.Tasks;
 using UWP.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -28,23 +30,21 @@ namespace UWP
         {
             this.InitializeComponent();
             Cards = new ObservableCollection<Card>();
-            var mycards = CardManager.GetCards();
-            foreach(Card c in mycards)
+            var mycards = Card.ColorCards;
+            foreach (Card c in mycards)
             {
                 Cards.Add(c);
             }
-            //Card.Style = CardStyle.Horizontal;
-            switch(Card.Style)
+            switch (Card.Style)
             {
                 case CardStyle.Bullseye:
-                    GridView_Cards.ItemTemplate = (DataTemplate)this.Resources["CardTemplate_Bullseye"];   break;
+                    GridView_Cards.ItemTemplate = (DataTemplate)this.Resources["CardTemplate_Bullseye"]; break;
                 case CardStyle.Horizontal:
                     GridView_Cards.ItemTemplate = (DataTemplate)this.Resources["CardTemplate_Horizontal"]; break;
                 case CardStyle.Vertical:
-                    GridView_Cards.ItemTemplate = (DataTemplate)this.Resources["CardTemplate_Vertical"];   break;
+                    GridView_Cards.ItemTemplate = (DataTemplate)this.Resources["CardTemplate_Vertical"]; break;
             }
         }
-
         private void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             /*
@@ -65,6 +65,7 @@ namespace UWP
             Card.ShowingCard = card;
             //跳转至色卡详情界面
             Frame.Navigate(typeof(CardDetail));
+            CardManager.SaveCardsAsync();
         }
     }
 }

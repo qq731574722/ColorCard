@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using UWP.Models;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
@@ -42,6 +43,7 @@ namespace UWP
             // Hide default title bar.
             this.InitializeComponent();
             CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (s, e) => UpdateAppTitle(s);
+            CardManager.GetCardsAsync();
             //var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             //coreTitleBar.ExtendViewIntoTitleBar = true;
         }

@@ -62,6 +62,7 @@ namespace UWP
         {
             this.InitializeComponent();
             PageLoaded();
+            Card.ColorCards[0].Name = "色卡";
             
         }
 

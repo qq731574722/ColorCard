@@ -53,7 +53,7 @@ namespace UWP
         public GetColorPage()
         {
             this.InitializeComponent();
-            card = CardManager.GetCards()[0];
+            card = Card.ColorCards[0];
 
             switch (Card.Style)
             {
