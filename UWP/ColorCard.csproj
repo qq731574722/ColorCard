@@ -127,6 +127,7 @@
     <None Include="UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\ColorCard.txt" />
     <Content Include="Assets\partially-cloudy.png" />
     <Content Include="Assets\Sample.jpg" />
     <Content Include="Properties\Default.rd.xml" />
