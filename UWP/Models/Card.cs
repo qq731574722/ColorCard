@@ -74,7 +74,6 @@ namespace UWP.Models
         {
             var localFloder = ApplicationData.Current.LocalFolder;
             StorageFile file = await localFloder.CreateFileAsync("ColorCard.txt", CreationCollisionOption.ReplaceExisting);
-
             var cards = Card.ColorCards;
             List<string> contents = new List<string>();
             foreach (Card card in cards)

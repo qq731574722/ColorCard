@@ -15,10 +15,26 @@
                         ItemInvoked="nvSample_ItemInvoked"
                         BackRequested="nvSample_BackRequested">
             <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="HomePageItem"      Icon="Home"         Content="色卡" Tag="HomePage"     />
-                <NavigationViewItem x:Name="MinePageItem"      Icon="Favorite"     Content="我的" Tag="MinePage" />
-                <NavigationViewItem x:Name="GetColorPageItem"  Icon="BrowsePhotos" Content="取色" Tag="GetColorPage"     />
-                <NavigationViewItem x:Name="AboutPageItem"     Icon="Contact"      Content="关于" Tag="AboutPage"    />
+                <NavigationViewItem x:Name="HomePageItem"      Content="色卡" Tag="HomePage">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE790;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="MinePageItem"      Content="我的" Tag="MinePage">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE728;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="GetColorPageItem"  Content="取色" Tag="GetColorPage">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEB9F;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="AboutPageItem"     Content="关于" Tag="AboutPage"    >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE783;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame" Margin="0,0,0,0"/>
         </NavigationView>

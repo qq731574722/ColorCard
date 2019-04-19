@@ -28,6 +28,7 @@ namespace UWP
         private ObservableCollection<Card> Cards;
         public HomePage()
         {
+            NavigationCacheMode = NavigationCacheMode.Disabled;
             this.InitializeComponent();
             Cards = new ObservableCollection<Card>();
             var mycards = Card.ColorCards;
