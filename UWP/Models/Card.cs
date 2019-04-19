@@ -23,7 +23,8 @@ namespace UWP.Models
         public int ID { get; set; }
         public static CardStyle Style { get; set; }
         public static Card ShowingCard { get; set; }
-        public static List<Card> ColorCards = new List<Card>();
+        public static int CardFrom;
+        public static List<Card> ColorCards;
     }
     class CardManager
     {
@@ -39,11 +40,11 @@ namespace UWP.Models
             {
                 //若没有用户文件则从项目安装目录复制一份过去
                 // TODO: 第一次打开绝对没有数据
-                var src =await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/ColorCard.txt"));
+                var src = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/ColorCard.txt"));
                 var dest = localFloder.Path + "\\ColorCard.txt";
-                System.IO.File.Copy(src.Path, dest);
+                File.Copy(src.Path, dest);
             }
-            
+
             StorageFile file = await localFloder.GetFileAsync("ColorCard.txt");
             IList<string> contents = await FileIO.ReadLinesAsync(file);
             for (int i = 0; i < contents.Count; i++)
@@ -92,13 +93,17 @@ namespace UWP.Models
             }
             await FileIO.WriteLinesAsync(file, contents);
         }
-        public static async Task InitFile()
+        public static async void InitFile()
         {
-
             var localFloder = ApplicationData.Current.LocalFolder;
             var src = await StorageFile.GetFileFromApplicationUriAsync(new System.Uri("ms-appx:///Assets/ColorCard.txt"));
             var dest = localFloder.Path + "\\ColorCard.txt";
-            System.IO.File.Copy(src.Path, dest);
+            File.Copy(src.Path, dest);
+        }
+        public static void SaveCard(int ID,string Name)
+        {
+            Card.ColorCards[ID].Name = Name;
+            SaveCardsAsync();
         }
     }
 }

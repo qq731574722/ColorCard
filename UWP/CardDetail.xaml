@@ -67,14 +67,25 @@
                 </ContentControl>
             </Grid>
         </StackPanel>
+        <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
 
-        <StackPanel Orientation="Horizontal" Grid.Row="2" VerticalAlignment="Bottom" Margin="0,0,0,20">
-            <AppBarButton Label="重命名" Icon="Edit"></AppBarButton>
-            <AppBarButton Label="收藏" Icon="OutlineStar"/>
-            <AppBarButton Label="删除" Icon="Delete"/>
-            <AppBarButton Label="复制" Icon="Copy"/>
-            <AppBarButton Label="分享" Icon="Share"/>
-            <AppBarButton Label="RGB" Icon="Sync"/>
+            <StackPanel Orientation="Horizontal" x:Name="RenameArea" Visibility="Collapsed">
+                <TextBox x:Name="NewName" Width="180" HorizontalAlignment="Left"/>
+                <Button Click="Rename_Sure_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE73E;"/>
+                        <TextBlock Margin="5,0,5,0">确定</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <AppBarButton Label="重命名" Icon="Edit" Click="Rename_Click"></AppBarButton>
+                <AppBarButton Label="收藏" Icon="OutlineStar"/>
+                <AppBarButton Label="删除" Icon="Delete"/>
+                <AppBarButton Label="复制" Icon="Copy"/>
+                <AppBarButton Label="分享" Icon="Share"/>
+                <AppBarButton Label="RGB" Icon="Sync"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 

@@ -25,7 +25,7 @@ namespace UWP
     /// </summary>
     public sealed partial class CardDetail : Page
     {
-        private Card _card{ get; set; }
+        private Card _card { get; set; }
         public CardDetail()
         {
             this.InitializeComponent();
@@ -34,6 +34,7 @@ namespace UWP
                 Title.Text = "色卡";
             else
                 Title.Text = _card.Name;
+            NewName.Text = Title.Text;
             switch (Card.Style)
             {
                 case CardStyle.Bullseye:
@@ -48,6 +49,21 @@ namespace UWP
             }
             DataContext = this;
         }
-        
+
+        private void Rename_Click(object sender, RoutedEventArgs e)
+        {
+            if (RenameArea.Visibility == Visibility.Visible)
+                RenameArea.Visibility = Visibility.Collapsed;
+            else
+                RenameArea.Visibility = Visibility.Visible;
+        }
+
+        private void Rename_Sure_Click(object sender, RoutedEventArgs e)
+        {
+            _card.Name = NewName.Text;
+            Title.Text = NewName.Text;
+            RenameArea.Visibility = Visibility.Collapsed;
+            CardManager.SaveCard(_card.ID, _card.Name);
+        }
     }
 }

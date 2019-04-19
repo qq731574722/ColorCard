@@ -47,25 +47,11 @@ namespace UWP
         }
         private void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            /*
-            Card card = (Card)e.ClickedItem;
-            ContentDialog nDialog = new ContentDialog()
-            {
-                Title = card.Name,
-                Content = card.ID.ToString()+ Card.Style,
-                CloseButtonText = "Ok",
-            };
-            if (string.IsNullOrEmpty(card.Name))
-                nDialog.Title = "色卡 No." + card.ID;
-            Cards.Remove(card);
-            await nDialog.ShowAsync();
-            */
-
             Card card = (Card)e.ClickedItem;
             Card.ShowingCard = card;
+            Card.CardFrom = 0;
             //跳转至色卡详情界面
             Frame.Navigate(typeof(CardDetail));
-            CardManager.SaveCardsAsync();
         }
     }
 }

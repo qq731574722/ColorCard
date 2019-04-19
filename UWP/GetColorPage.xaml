@@ -136,6 +136,7 @@
                                    Canvas.Left="20" 
                                    Canvas.Top="20" 
                                    Canvas.ZIndex="0"  
+                                   CanDrag="True"
                                    DragDelta="Thumb_DragDelta"
                                    DragCompleted="Thumb_DragCompleted">
                                 <Thumb.Template>

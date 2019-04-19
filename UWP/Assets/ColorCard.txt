@@ -1,5 +1,5 @@
 [ColorCard]
-8
+0
 色卡
 4
 #177E89
@@ -7,7 +7,7 @@
 #FFC857
 #DB3A34
 [ColorCard]
-9
+1
 Card
 4
 #177E89
@@ -15,7 +15,7 @@ Card
 #FFC857
 #DB3A34
 [ColorCard]
-10
+2
 
 4
 #177E89
@@ -23,7 +23,7 @@ Card
 #FFC857
 #DB3A34
 [ColorCard]
-101
+3
 
 4
 Red
@@ -31,7 +31,7 @@ Blue
 Green
 Yellow
 [ColorCard]
-102
+44
 
 4
 Red
@@ -39,7 +39,7 @@ Blue
 Green
 Yellow
 [ColorCard]
-103
+5
 
 4
 Red
