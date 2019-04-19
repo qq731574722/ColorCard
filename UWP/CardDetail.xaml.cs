@@ -55,7 +55,11 @@ namespace UWP
             if (RenameArea.Visibility == Visibility.Visible)
                 RenameArea.Visibility = Visibility.Collapsed;
             else
+            {
                 RenameArea.Visibility = Visibility.Visible;
+                NewName.Focus(FocusState.Keyboard);
+                NewName.Select(0, NewName.Text.Length);
+            }
         }
 
         private void Rename_Sure_Click(object sender, RoutedEventArgs e)
@@ -64,6 +68,17 @@ namespace UWP
             Title.Text = NewName.Text;
             RenameArea.Visibility = Visibility.Collapsed;
             CardManager.SaveCard(_card.ID, _card.Name);
+        }
+
+        private void Button_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if(e.Key==Windows.System.VirtualKey.Enter)
+            {
+                _card.Name = NewName.Text;
+                Title.Text = NewName.Text;
+                RenameArea.Visibility = Visibility.Collapsed;
+                CardManager.SaveCard(_card.ID, _card.Name);
+            }
         }
     }
 }
