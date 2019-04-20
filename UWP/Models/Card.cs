@@ -36,6 +36,7 @@ namespace UWP.Models
             {
                 StorageFile file = await localFloder.GetFileAsync("ColorCard.txt");
                 IList<string> contents = await FileIO.ReadLinesAsync(file);
+                int cnt = 0;
                 for (int i = 0; i < contents.Count; i++)
                 {
                     string str = contents[i];
@@ -43,7 +44,7 @@ namespace UWP.Models
                     {
                         Card c = new Card
                         {
-                            ID = int.Parse(contents[i + 1]),
+                            ID = cnt++,
                             Name = contents[i + 2],
                             ColorNum = int.Parse(contents[i + 3])
                         };
@@ -65,6 +66,7 @@ namespace UWP.Models
                 // TODO: 第一次打开绝对没有数据
                 StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/ColorCard.txt"));
                 IList<string> contents = await FileIO.ReadLinesAsync(file);
+                int cnt = 0;
                 for (int i = 0; i < contents.Count; i++)
                 {
                     string str = contents[i];
@@ -72,7 +74,7 @@ namespace UWP.Models
                     {
                         Card c = new Card
                         {
-                            ID = int.Parse(contents[i + 1]),
+                            ID = cnt++,
                             Name = contents[i + 2],
                             ColorNum = int.Parse(contents[i + 3])
                         };
