@@ -34,41 +34,64 @@ namespace UWP.Models
             var localFloder = ApplicationData.Current.LocalFolder;
             try
             {
-                await localFloder.GetFileAsync("ColorCard.txt");
+                StorageFile file = await localFloder.GetFileAsync("ColorCard.txt");
+                IList<string> contents = await FileIO.ReadLinesAsync(file);
+                for (int i = 0; i < contents.Count; i++)
+                {
+                    string str = contents[i];
+                    if (str.Equals("[ColorCard]"))
+                    {
+                        Card c = new Card
+                        {
+                            ID = int.Parse(contents[i + 1]),
+                            Name = contents[i + 2],
+                            ColorNum = int.Parse(contents[i + 3])
+                        };
+                        List<Color> colors = new List<Color>();
+                        for (int j = i + 4; j < i + 4 + c.ColorNum; j++)
+                        {
+                            Color color = new Color { RGB = contents[j] };
+                            colors.Add(color);
+                        }
+                        c.Colors = colors;
+                        i += 3 + c.ColorNum;
+                        Card.ColorCards.Add(c);
+                    }
+                }
             }
             catch (FileNotFoundException)
             {
                 //若没有用户文件则从项目安装目录复制一份过去
                 // TODO: 第一次打开绝对没有数据
-                var src = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/ColorCard.txt"));
-                var dest = localFloder.Path + "\\ColorCard.txt";
-                File.Copy(src.Path, dest);
-            }
-
-            StorageFile file = await localFloder.GetFileAsync("ColorCard.txt");
-            IList<string> contents = await FileIO.ReadLinesAsync(file);
-            for (int i = 0; i < contents.Count; i++)
-            {
-                string str = contents[i];
-                if (str.Equals("[ColorCard]"))
+                StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/ColorCard.txt"));
+                IList<string> contents = await FileIO.ReadLinesAsync(file);
+                for (int i = 0; i < contents.Count; i++)
                 {
-                    Card c = new Card
+                    string str = contents[i];
+                    if (str.Equals("[ColorCard]"))
                     {
-                        ID = int.Parse(contents[i + 1]),
-                        Name = contents[i + 2],
-                        ColorNum = int.Parse(contents[i + 3])
-                    };
-                    List<Color> colors = new List<Color>();
-                    for (int j = i + 4; j < i + 4 + c.ColorNum; j++)
-                    {
-                        Color color = new Color { RGB = contents[j] };
-                        colors.Add(color);
+                        Card c = new Card
+                        {
+                            ID = int.Parse(contents[i + 1]),
+                            Name = contents[i + 2],
+                            ColorNum = int.Parse(contents[i + 3])
+                        };
+                        List<Color> colors = new List<Color>();
+                        for (int j = i + 4; j < i + 4 + c.ColorNum; j++)
+                        {
+                            Color color = new Color { RGB = contents[j] };
+                            colors.Add(color);
+                        }
+                        c.Colors = colors;
+                        i += 3 + c.ColorNum;
+                        Card.ColorCards.Add(c);
                     }
-                    c.Colors = colors;
-                    i += 3 + c.ColorNum;
-                    Card.ColorCards.Add(c);
                 }
+                SaveCardsAsync();
+                //var dest = localFloder.Path + "\\ColorCard.txt";
+                //File.Copy(file.Path, dest);
             }
+            //file = await localFloder.GetFileAsync("ColorCard.txt");
         }
         public static async void SaveCardsAsync()
         {
@@ -92,13 +115,7 @@ namespace UWP.Models
             }
             await FileIO.WriteLinesAsync(file, contents);
         }
-        public static async void InitFile()
-        {
-            var localFloder = ApplicationData.Current.LocalFolder;
-            var src = await StorageFile.GetFileFromApplicationUriAsync(new System.Uri("ms-appx:///Assets/ColorCard.txt"));
-            var dest = localFloder.Path + "\\ColorCard.txt";
-            File.Copy(src.Path, dest);
-        }
+
         public static void SaveCard(int ID,string Name)
         {
             Card.ColorCards[ID].Name = Name;

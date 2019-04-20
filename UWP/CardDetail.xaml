@@ -44,10 +44,10 @@
                             <Canvas.Clip>
                                 <RectangleGeometry Rect="0,0,200,250"></RectangleGeometry>
                             </Canvas.Clip>
-                            <Rectangle Height="250" Width="50" Fill="{x:Bind _card.Colors[0].RGB}" Canvas.Left="0"/>
-                            <Rectangle Height="250" Width="50" Fill="{x:Bind _card.Colors[1].RGB}" Canvas.Left="50"/>
-                            <Rectangle Height="250" Width="50" Fill="{x:Bind _card.Colors[2].RGB}" Canvas.Left="100"/>
-                            <Rectangle Height="250" Width="50" Fill="{x:Bind _card.Colors[3].RGB}" Canvas.Left="150" />
+                            <Rectangle Height="250" Width="50" Fill="{x:Bind _card.Colors[3].RGB}" Canvas.Left="0"/>
+                            <Rectangle Height="250" Width="50" Fill="{x:Bind _card.Colors[2].RGB}" Canvas.Left="50"/>
+                            <Rectangle Height="250" Width="50" Fill="{x:Bind _card.Colors[1].RGB}" Canvas.Left="100"/>
+                            <Rectangle Height="250" Width="50" Fill="{x:Bind _card.Colors[0].RGB}" Canvas.Left="150" />
                         </Canvas>
                     </Grid>
                 </ContentControl>
@@ -79,7 +79,7 @@
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <AppBarButton Label="重命名" Icon="Edit" Click="Rename_Click"></AppBarButton>
+                <AppBarButton Label="重命名" Icon="Rename" Click="Rename_Click"></AppBarButton>
                 <AppBarButton Label="收藏" Icon="OutlineStar"/>
                 <AppBarButton Label="删除" Icon="Delete"/>
                 <AppBarButton Label="复制" Icon="Copy"/>
