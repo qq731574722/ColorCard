@@ -79,7 +79,7 @@ namespace UWP
                 RenameArea.Visibility = Visibility.Collapsed;
                 if (Card.CardFrom == 0)
                     CardManager.SaveCard(_card.ID, _card.Name);
-                else
+                else if(Card.CardFrom == 1)
                     CardManager.SaveMyCard(_card.ID, _card.Name);
             }
         }

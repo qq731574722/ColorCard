@@ -53,7 +53,15 @@ namespace UWP
         public GetColorPage()
         {
             this.InitializeComponent();
-            card = Card.ColorCards[0];
+            card = new Card();
+            List<Color> colors = new List<Color>
+            {
+                new Color() { RGB = "#177E89" },
+                new Color() { RGB = "#084C61" },
+                new Color() { RGB = "#FFC857" },
+                new Color() { RGB = "#DB3A34" }
+            };
+            card.Colors = colors;
 
             switch (Card.Style)
             {

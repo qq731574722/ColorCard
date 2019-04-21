@@ -95,7 +95,7 @@
         <!--Contents-->
         <GridView Name="GridView_Cards"
                   Grid.Row="1" 
-                  ItemsSource="{x:Bind Cards}" 
+                  ItemsSource="{x:Bind MyCards}" 
                   ItemContainerStyle="{ThemeResource ColorCardStyle}"
                   ItemTemplate="{StaticResource CardTemplate_Bullseye}"
                   IsItemClickEnabled="True"

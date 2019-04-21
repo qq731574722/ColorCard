@@ -30,24 +30,24 @@ namespace UWP
     public sealed partial class MinePage:Page
     {
         //private List<Card> Cards;
-        private ObservableCollection<Card> Cards;
+        private ObservableCollection<Card> MyCards;
         public MinePage()
         {
             NavigationCacheMode = NavigationCacheMode.Disabled;
             this.InitializeComponent();
-            Cards = new ObservableCollection<Card>();
-            Cards.Clear();
+            MyCards = new ObservableCollection<Card>();
+            MyCards.Clear();
             var mycards = Card.MyCards;
             foreach(Card c in Card.ColorCards)
             {
                 if(c.IsFavorite==1)
                 {
-                    Cards.Add(c);
+                    MyCards.Add(c);
                 }
             }
             foreach (Card c in mycards)
             {
-                Cards.Add(c);
+                MyCards.Add(c);
             }
             switch (Card.Style)
             {
