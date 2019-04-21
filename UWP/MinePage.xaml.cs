@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 using Color = Windows.UI.Color;
 using Windows.Graphics.Imaging;
+using System.Collections.ObjectModel;
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
 namespace UWP
@@ -26,85 +27,48 @@ namespace UWP
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class MinePage : INotifyPropertyChanged
+    public sealed partial class MinePage:Page
     {
-
-        WriteableBitmap image;
-        private BitmapImage _image;
-        public BitmapImage Image
-        {
-            set
-            {
-                _image = value;
-                OnPropertyChanged();
-            }
-            get
-            {
-                return _image;
-            }
-        }
-
-        private string color1;
-        public string Color1
-        {
-            get { return color1; }
-            set
-            {
-                if(color1!=value)
-                {
-                    color1 = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        
+        //private List<Card> Cards;
+        private ObservableCollection<Card> Cards;
         public MinePage()
         {
+            NavigationCacheMode = NavigationCacheMode.Disabled;
             this.InitializeComponent();
-            PageLoaded();
-            Card.ColorCards[0].Name = "色卡";
-            
+            Cards = new ObservableCollection<Card>();
+            Cards.Clear();
+            var mycards = Card.MyCards;
+            foreach(Card c in Card.ColorCards)
+            {
+                if(c.IsFavorite==1)
+                {
+                    Cards.Add(c);
+                }
+            }
+            foreach (Card c in mycards)
+            {
+                Cards.Add(c);
+            }
+            switch (Card.Style)
+            {
+                case CardStyle.Bullseye:
+                    GridView_Cards.ItemTemplate = (DataTemplate)this.Resources["CardTemplate_Bullseye"]; break;
+                case CardStyle.Horizontal:
+                    GridView_Cards.ItemTemplate = (DataTemplate)this.Resources["CardTemplate_Horizontal"]; break;
+                case CardStyle.Vertical:
+                    GridView_Cards.ItemTemplate = (DataTemplate)this.Resources["CardTemplate_Vertical"]; break;
+            }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName=null)
+        private void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-        private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
-        {
-            UIElement thumb = (UIElement)sender;
-            double posX = Canvas.GetLeft(thumb) + e.HorizontalChange;
-            double posY = Canvas.GetTop(thumb) + e.VerticalChange;
-            Canvas.SetLeft(thumb, posX);
-            Canvas.SetTop(thumb, posY);
-            int pixelX = ConvertPosToPixel((int)posX + 12);
-            int pixelY = ConvertPosToPixel((int)posY + 30);
-            Color color = image.GetPixel(pixelX,pixelY);
-            Color1 = color.ToString();
-        }
-        private async void PageLoaded()
-        {
-            Color1 = "#00FFFF";
-            DataContext = this;
-            var uri = new System.Uri("ms-appx:///Assets/Sample.jpg");
-            _image = new BitmapImage();
-            _image.UriSource = uri;
-            img.Source = _image;
-#pragma warning disable CS0618 // 类型或成员已过时
-            image = await BitmapFactory.New(1, 1).FromContent(Image.UriSource); //把 BitmapImage 转 WriteableBitmapEx
-#pragma warning restore CS0618 // 类型或成员已过时
-            if (image.PixelWidth < PickAreaGrid.RenderSize.Width)
-                img.Stretch = Stretch.None;
-        }
-
-        /* 计算缩放比将坐标转换为图片上的像素 */
-        private int ConvertPosToPixel(double pos)
-        {
-            double scale = _image.PixelWidth / PickAreaGrid.RenderSize.Width;
-            return (int)(pos*scale);
+            Card card = (Card)e.ClickedItem;
+            Card.ShowingCard = card;
+            if (card.IsFavorite == 1)
+                Card.CardFrom = 0;
+            else
+                Card.CardFrom = 1;
+            //跳转至色卡详情界面
+            Frame.Navigate(typeof(CardDetail));
         }
     }
 }

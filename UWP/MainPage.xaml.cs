@@ -44,6 +44,7 @@ namespace UWP
             this.InitializeComponent();
             CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (s, e) => UpdateAppTitle(s);
             CardManager.GetCardsAsync();
+            CardManager.GetMyCardsAsync();
             //var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             //coreTitleBar.ExtendViewIntoTitleBar = true;
         }

@@ -96,6 +96,7 @@ namespace UWP
                 ReSelectImageButton.Visibility = Visibility.Visible;
                 SelectImageButton.Visibility = Visibility.Collapsed;
             }
+            SaveCard.IsEnabled = true;
         }
 
         private void Thumb_DragCompleted(object sender, DragCompletedEventArgs e)
@@ -211,6 +212,17 @@ namespace UWP
                 }
             }
         }
+
+        private void SaveCard_Click(object sender, RoutedEventArgs e)
+        {
+            card.IsFavorite = 0;
+            card.Name = "";
+            card.ID = Card.MyCards.Count;
+            Card.MyCards.Add(card);
+            CardManager.SaveMyCardsAsync();
+            SaveCard.IsEnabled = false;
+        }
+
         public string Color1
         {
             get { return color1; }

@@ -77,7 +77,10 @@ namespace UWP
                 _card.Name = NewName.Text;
                 Title.Text = NewName.Text;
                 RenameArea.Visibility = Visibility.Collapsed;
-                CardManager.SaveCard(_card.ID, _card.Name);
+                if (Card.CardFrom == 0)
+                    CardManager.SaveCard(_card.ID, _card.Name);
+                else
+                    CardManager.SaveMyCard(_card.ID, _card.Name);
             }
         }
     }

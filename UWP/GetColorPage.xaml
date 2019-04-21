@@ -99,12 +99,17 @@
                 <!-- 按钮 -->
                 <StackPanel Orientation="Horizontal">
                     <GridView Margin="0,10,0,0" SelectionMode="Single">
-                        <TextBlock>4色</TextBlock>
+                        <GridViewItem IsSelected="True" >
+                            <TextBlock>4色</TextBlock>
+                        </GridViewItem>
                         <TextBlock>5色</TextBlock>
                         <TextBlock>6色</TextBlock>
                     </GridView>
-                    <Button Margin="205,0,0,0" Width="100">
-                        保存色卡
+                    <Button Margin="185,0,0,0" Width="120" x:Name="SaveCard" Click="SaveCard_Click" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Download"/>
+                            <TextBlock Margin="5">保存色卡</TextBlock>
+                        </StackPanel>
                     </Button>
                 </StackPanel>
 
