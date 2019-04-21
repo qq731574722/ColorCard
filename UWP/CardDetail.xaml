@@ -65,6 +65,28 @@
                         </Canvas>
                     </Grid>
                 </ContentControl>
+                <Grid Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Width="40" Height="40" Fill="{x:Bind _card.Colors[0].RGB}"  Margin="0,0,10,10"/>
+                                <TextBlock x:Name="t0" Text="{x:Bind _card.Colors[0].RGB}" FontSize="24" FontFamily="Consolas"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Width="40" Height="40" Fill="{x:Bind _card.Colors[1].RGB}" Margin="0,0,10,10"/>
+                                <TextBlock x:Name="t1" Text="{x:Bind _card.Colors[1].RGB}" FontSize="24" FontFamily="Consolas"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Width="40" Height="40" Fill="{x:Bind _card.Colors[2].RGB}" Margin="0,0,10,10"/>
+                                <TextBlock x:Name="t2" Text="{x:Bind _card.Colors[2].RGB}" FontSize="24" FontFamily="Consolas"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Width="40" Height="40" Fill="{x:Bind _card.Colors[3].RGB}" Margin="0,0,10,10"/>
+                                <TextBlock x:Name="t3" Text="{x:Bind _card.Colors[3].RGB}" FontSize="24" FontFamily="Consolas"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
@@ -84,7 +106,15 @@
                 <AppBarButton Label="删除" x:Name="Erase" Click="Erase_Click" Icon="Delete"/>
                 <AppBarButton Label="复制" Icon="Copy"/>
                 <AppBarButton Label="分享" Icon="Share"/>
-                <AppBarButton Label="HEX" Icon="Sync"/>
+                <AppBarButton Label="HEX" Icon="Switch" x:Name="ColorType">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="HEX" Tag="HEX"/>
+                            <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="RGB" Tag="RGB"/>
+                            <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="HSV" Tag="HSV"/>
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
             </StackPanel>
         </StackPanel>
     </Grid>

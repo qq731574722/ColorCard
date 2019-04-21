@@ -123,5 +123,35 @@ namespace UWP
             CardManager.SaveMyCardsAsync();
             Erase.IsEnabled = false;
         }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            var type = ((MenuFlyoutItem)sender).Tag.ToString();
+            switch(type)
+            {
+                case "RGB":
+                    t0.Text = _card.Colors[0].getTextRGB();
+                    t1.Text = _card.Colors[1].getTextRGB();
+                    t2.Text = _card.Colors[2].getTextRGB();
+                    t3.Text = _card.Colors[3].getTextRGB();
+                    ColorType.Label = "RGB";
+                    break;
+                case "HEX":
+                    t0.Text = _card.Colors[0].RGB;
+                    t1.Text = _card.Colors[1].RGB;
+                    t2.Text = _card.Colors[2].RGB;
+                    t3.Text = _card.Colors[3].RGB;
+                    ColorType.Label = "HEX";
+                    break;
+                case "HSV":
+                    t0.Text = _card.Colors[0].getTextHSV();
+                    t1.Text = _card.Colors[1].getTextHSV();
+                    t2.Text = _card.Colors[2].getTextHSV();
+                    t3.Text = _card.Colors[3].getTextHSV();
+                    ColorType.Label = "HSV";
+                    break;
+            }
+        }
+
     }
 }

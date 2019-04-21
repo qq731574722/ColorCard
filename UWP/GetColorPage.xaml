@@ -77,19 +77,19 @@
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Rectangle Width="40" Height="40" Fill="{Binding Path=Color0,Mode=TwoWay}" Margin="0,0,10,10"/>
-                                    <TextBlock Text="{Binding Path=Color0,Mode=TwoWay}" FontSize="24"/>
+                                    <TextBlock Text="{Binding Path=Color0,Mode=TwoWay}" FontSize="24" FontFamily="Consolas"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Rectangle Width="40" Height="40" Fill="{Binding Path=Color1,Mode=TwoWay}" Margin="0,0,10,10"/>
-                                    <TextBlock Text="{Binding Path=Color1,Mode=TwoWay}" FontSize="24"/>
+                                    <TextBlock Text="{Binding Path=Color1,Mode=TwoWay}" FontSize="24" FontFamily="Consolas"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Rectangle Width="40" Height="40" Fill="{Binding Path=Color2,Mode=TwoWay}" Margin="0,0,10,10"/>
-                                    <TextBlock Text="{Binding Path=Color2,Mode=TwoWay}" FontSize="24"/>
+                                    <TextBlock Text="{Binding Path=Color2,Mode=TwoWay}" FontSize="24" FontFamily="Consolas"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Rectangle Width="40" Height="40" Fill="{Binding Path=Color3,Mode=TwoWay}" Margin="0,0,10,10"/>
-                                    <TextBlock Text="{Binding Path=Color3,Mode=TwoWay}" FontSize="24"/>
+                                    <TextBlock Text="{Binding Path=Color3,Mode=TwoWay}" FontSize="24" FontFamily="Consolas"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
