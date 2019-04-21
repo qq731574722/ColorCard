@@ -48,6 +48,18 @@ namespace UWP
                     break;
             }
             DataContext = this;
+            if(Card.CardFrom==0)
+            {
+                Erase.Visibility = Visibility.Collapsed;
+                if(_card.IsFavorite==1)
+                {
+                    Favorite.IsChecked = true;
+                }
+            }
+            else
+            {
+                Favorite.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Rename_Click(object sender, RoutedEventArgs e)
@@ -82,6 +94,34 @@ namespace UWP
                 else if(Card.CardFrom == 1)
                     CardManager.SaveMyCard(_card.ID, _card.Name);
             }
+        }
+
+        private void Favorite_Checked(object sender, RoutedEventArgs e)
+        {
+            Card.ColorCards[_card.ID].IsFavorite = 1;
+            CardManager.SaveCardsAsync();
+            Favorite.Icon = new SymbolIcon(Symbol.Favorite);
+            Favorite.Label = "已收藏";
+        }
+
+        private void Favorite_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Card.ColorCards[_card.ID].IsFavorite = 0;
+            CardManager.SaveCardsAsync();
+            Favorite.Icon = new SymbolIcon(Symbol.OutlineStar);
+            Favorite.Label = "收藏";
+        }
+
+        private void Erase_Click(object sender, RoutedEventArgs e)
+        {
+            Card.MyCards.Remove(_card);
+            int cnt = 0;
+            foreach(Card c in Card.MyCards)
+            {
+                c.ID = cnt++;
+            }
+            CardManager.SaveMyCardsAsync();
+            Erase.IsEnabled = false;
         }
     }
 }
