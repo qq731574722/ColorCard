@@ -104,6 +104,22 @@ namespace UWP
                 ReSelectImageButton.Visibility = Visibility.Visible;
                 SelectImageButton.Visibility = Visibility.Collapsed;
             }
+            if (AutoSelect.IsChecked == true)
+            {
+                /*
+                DragDeltaEventArgs eventArgs = new DragDeltaEventArgs(random.Next(0,200), random.Next(0,200));
+                Thumb_DragDelta(Picker0, eventArgs);
+                */
+                Random random = new Random();
+                Canvas.SetTop(Picker0, random.Next(0, 500));
+                Canvas.SetLeft(Picker0, random.Next(0, 500));
+                Canvas.SetTop(Picker1, random.Next(0, 500));
+                Canvas.SetLeft(Picker1, random.Next(0, 500));
+                Canvas.SetTop(Picker2, random.Next(0, 500));
+                Canvas.SetLeft(Picker2, random.Next(0, 500));
+                Canvas.SetTop(Picker3, random.Next(0, 500));
+                Canvas.SetLeft(Picker3, random.Next(0, 500));
+            }
             SaveCard.IsEnabled = true;
         }
 

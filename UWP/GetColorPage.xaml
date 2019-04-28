@@ -105,7 +105,13 @@
                         <TextBlock>5色</TextBlock>
                         <TextBlock>6色</TextBlock>
                     </GridView>
-                    <Button Margin="185,0,0,0" Width="120" x:Name="SaveCard" Click="SaveCard_Click" IsEnabled="False">
+                    <ToggleButton Margin="55,0,0,0" Width="120" x:Name="AutoSelect" IsChecked="True">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="MapPin"/>
+                            <TextBlock Margin="5">智能选择</TextBlock>
+                        </StackPanel>
+                    </ToggleButton>
+                    <Button Margin="10,0,0,0" Width="120" x:Name="SaveCard" Click="SaveCard_Click" IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="Download"/>
                             <TextBlock Margin="5">保存色卡</TextBlock>
