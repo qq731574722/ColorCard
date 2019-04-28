@@ -103,24 +103,29 @@ namespace UWP
 
                 ReSelectImageButton.Visibility = Visibility.Visible;
                 SelectImageButton.Visibility = Visibility.Collapsed;
+                if (AutoSelect.IsChecked == true)
+                {
+                    /*
+                    DragDeltaEventArgs eventArgs = new DragDeltaEventArgs(random.Next(0,200), random.Next(0,200));
+                    Thumb_DragDelta(Picker0, eventArgs);
+                    */
+                    Random random = new Random();
+                    Canvas.SetTop(Picker0, random.Next(0, 500));
+                    Canvas.SetLeft(Picker0, random.Next(0, 1000));
+                    Canvas.SetTop(Picker1, random.Next(0, 500));
+                    Canvas.SetLeft(Picker1, random.Next(0, 1000));
+                    Canvas.SetTop(Picker2, random.Next(0, 500));
+                    Canvas.SetLeft(Picker2, random.Next(0, 1000));
+                    Canvas.SetTop(Picker3, random.Next(0, 500));
+                    Canvas.SetLeft(Picker3, random.Next(0, 1000));
+                    Color0 = GetPickerRGB(Picker0);
+                    Color1 = GetPickerRGB(Picker1);
+                    Color2 = GetPickerRGB(Picker2);
+                    Color3 = GetPickerRGB(Picker3);
+
+                }
+                SaveCard.IsEnabled = true;
             }
-            if (AutoSelect.IsChecked == true)
-            {
-                /*
-                DragDeltaEventArgs eventArgs = new DragDeltaEventArgs(random.Next(0,200), random.Next(0,200));
-                Thumb_DragDelta(Picker0, eventArgs);
-                */
-                Random random = new Random();
-                Canvas.SetTop(Picker0, random.Next(0, 500));
-                Canvas.SetLeft(Picker0, random.Next(0, 500));
-                Canvas.SetTop(Picker1, random.Next(0, 500));
-                Canvas.SetLeft(Picker1, random.Next(0, 500));
-                Canvas.SetTop(Picker2, random.Next(0, 500));
-                Canvas.SetLeft(Picker2, random.Next(0, 500));
-                Canvas.SetTop(Picker3, random.Next(0, 500));
-                Canvas.SetLeft(Picker3, random.Next(0, 500));
-            }
-            SaveCard.IsEnabled = true;
         }
 
         private void Thumb_DragCompleted(object sender, DragCompletedEventArgs e)
@@ -242,6 +247,11 @@ namespace UWP
             card.IsFavorite = 0;
             card.Name = "";
             card.ID = Card.MyCards.Count;
+            card.Colors = new List<Color>();
+            card.Colors.Add(new Color() { RGB = Color0 });
+            card.Colors.Add(new Color() { RGB = Color1 });
+            card.Colors.Add(new Color() { RGB = Color2 });
+            card.Colors.Add(new Color() { RGB = Color3 });
             Card.MyCards.Add(card);
             CardManager.SaveMyCardsAsync();
             SaveCard.IsEnabled = false;
