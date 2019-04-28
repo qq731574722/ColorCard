@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using UWP.Models;
+using Windows.Storage;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -36,6 +37,7 @@ namespace UWP
 
         private void MyGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             if (CardTemplate_Bullseye.IsSelected)
             {
                 Card.Style = CardStyle.Bullseye;
@@ -48,6 +50,7 @@ namespace UWP
             {
                 Card.Style = CardStyle.Vertical;
             }
+            roamingSettings.Values["CardStyle"] = (int)Card.Style;
         }
     }
 }

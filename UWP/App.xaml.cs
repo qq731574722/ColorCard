@@ -8,6 +8,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -17,6 +18,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using UWP.Models;
 
 namespace UWP
 {
@@ -75,6 +77,9 @@ namespace UWP
                 Window.Current.Activate();
                 ExtendAcrylicIntoTitleBar();
             }
+            ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            if (roamingSettings.Values["CardStyle"] != null)
+                Card.Style = (CardStyle)roamingSettings.Values["CardStyle"];
         }
 
 
