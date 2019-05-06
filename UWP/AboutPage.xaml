@@ -25,7 +25,7 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-            <TextBlock Margin="20">
+            <TextBlock TextWrapping ="Wrap"  Margin="20" Width="400">
                 色卡是一款为设计师开发的配色工具用于配色工具，用于配色方案的管理。
                 <LineBreak/><LineBreak/>
                 首先，它提供了大量成熟的配色方案，可用于服装、家居等设计场景，供您参考。

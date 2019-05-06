@@ -15,6 +15,10 @@ using Windows.UI.Xaml.Navigation;
 using UWP.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.UI.Notifications;
+using Microsoft.Toolkit.Uwp.Notifications; // Notifications library
+using Microsoft.QueryStringDotNET; // QueryString.NET
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -48,10 +52,10 @@ namespace UWP
                     break;
             }
             DataContext = this;
-            if(Card.CardFrom==0)
+            if (Card.CardFrom == 0)
             {
                 Erase.Visibility = Visibility.Collapsed;
-                if(_card.IsFavorite==1)
+                if (_card.IsFavorite == 1)
                 {
                     Favorite.IsChecked = true;
                 }
@@ -84,14 +88,14 @@ namespace UWP
 
         private void Button_KeyUp(object sender, KeyRoutedEventArgs e)
         {
-            if(e.Key==Windows.System.VirtualKey.Enter)
+            if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 _card.Name = NewName.Text;
                 Title.Text = NewName.Text;
                 RenameArea.Visibility = Visibility.Collapsed;
                 if (Card.CardFrom == 0)
                     CardManager.SaveCard(_card.ID, _card.Name);
-                else if(Card.CardFrom == 1)
+                else if (Card.CardFrom == 1)
                     CardManager.SaveMyCard(_card.ID, _card.Name);
             }
         }
@@ -116,7 +120,7 @@ namespace UWP
         {
             Card.MyCards.Remove(_card);
             int cnt = 0;
-            foreach(Card c in Card.MyCards)
+            foreach (Card c in Card.MyCards)
             {
                 c.ID = cnt++;
             }
@@ -127,7 +131,7 @@ namespace UWP
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             var type = ((MenuFlyoutItem)sender).Tag.ToString();
-            switch(type)
+            switch (type)
             {
                 case "RGB":
                     t0.Text = _card.Colors[0].getTextRGB();
@@ -153,5 +157,58 @@ namespace UWP
             }
         }
 
+        private void Copy_Click(object sender, RoutedEventArgs e)
+        {
+            //复制色卡内容到剪贴板
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            String text = "「色卡推荐」\n";
+            foreach (Color color in _card.Colors)
+            {
+                text += (_card.Colors.IndexOf(color) + 1).ToString() + ".";
+                text += color.RGB + "\n";
+            }
+            dataPackage.SetText(text);
+            Clipboard.SetContent(dataPackage);
+            //构造通知内容
+            string title = "色卡已复制到剪贴板";
+            string content = text;
+            content = content.Replace("「色卡推荐」\n", "");
+            ToastVisual visual = new ToastVisual()
+            {
+                BindingGeneric = new ToastBindingGeneric()
+                {
+                    Children =
+                    {
+                        new AdaptiveText()
+                        {
+                            Text = title
+                        },
+
+                        new AdaptiveText()
+                        {
+                            Text = content
+                        },
+
+                    }
+                }
+            };
+            int conversationId = 1;
+            ToastContent toastContent = new ToastContent()
+            {
+                Visual = visual,
+                //Actions = actions,
+                // Arguments when the user taps body of toast
+                Launch = new QueryString()
+                {
+                    { "action", "viewConversation" },
+                    { "conversationId", conversationId.ToString() }
+
+                }.ToString()
+            };
+            var toast = new ToastNotification(toastContent.GetXml());
+            toast.ExpirationTime = DateTime.Now.AddMinutes(1);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
+        }
     }
 }

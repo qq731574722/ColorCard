@@ -104,7 +104,7 @@
                 <AppBarButton Label="重命名" Icon="Rename" Click="Rename_Click"></AppBarButton>
                 <AppBarToggleButton  Label="收藏" x:Name="Favorite" Icon="OutlineStar" Checked="Favorite_Checked" Unchecked="Favorite_Unchecked"/>
                 <AppBarButton Label="删除" x:Name="Erase" Click="Erase_Click" Icon="Delete"/>
-                <AppBarButton Label="复制" Icon="Copy"/>
+                <AppBarButton Label="复制" Icon="Copy" Click="Copy_Click"/>
                 <AppBarButton Label="分享" Icon="Share"/>
                 <AppBarButton Label="HEX" Icon="Switch" x:Name="ColorType">
                     <AppBarButton.Flyout>
