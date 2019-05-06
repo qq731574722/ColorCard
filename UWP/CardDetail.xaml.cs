@@ -19,6 +19,11 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Notifications;
 using Microsoft.Toolkit.Uwp.Notifications; // Notifications library
 using Microsoft.QueryStringDotNET; // QueryString.NET
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.Graphics.Imaging;
+using Windows.Graphics.Display;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -209,6 +214,95 @@ namespace UWP
             var toast = new ToastNotification(toastContent.GetXml());
             toast.ExpirationTime = DateTime.Now.AddMinutes(1);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
+        }
+
+        private  async void Share_Click(object sender, RoutedEventArgs e)
+        {
+            var bitmap = new RenderTargetBitmap();
+            string name;
+            if (_card.Name == null || _card.Name == "")
+                name = "色卡";
+            else
+                name = _card.Name;
+            StorageFile file = await KnownFolders.PicturesLibrary.CreateFileAsync(name +".jpg",CreationCollisionOption.ReplaceExisting);
+            await bitmap.RenderAsync(Stamp);
+            var buffer = await bitmap.GetPixelsAsync();
+            using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                var encod = await BitmapEncoder.CreateAsync(
+                    BitmapEncoder.JpegEncoderId, stream);
+                encod.SetPixelData(BitmapPixelFormat.Bgra8,
+                    BitmapAlphaMode.Ignore,
+                    (uint)bitmap.PixelWidth,
+                    (uint)bitmap.PixelHeight,
+                    DisplayInformation.GetForCurrentView().LogicalDpi,
+                    DisplayInformation.GetForCurrentView().LogicalDpi,
+                    buffer.ToArray()
+                   );
+                await encod.FlushAsync();
+            }
+            // In a real app, these would be initialized with actual data
+            string title = "色卡已保存到图片库中";
+            string image = file.Path;
+            // Construct the visuals of the toast
+            ToastVisual visual = new ToastVisual()
+            {
+                BindingGeneric = new ToastBindingGeneric()
+                {
+                    Children =
+                    {
+                        new AdaptiveText()
+                        {
+                            Text = title
+                        },
+                        new AdaptiveImage()
+                        {
+                            Source = image
+                        }
+                    },
+                }
+            };
+            int conversationId = 2;
+            // Construct the actions for the toast (inputs and buttons)
+            ToastActionsCustom actions = new ToastActionsCustom()
+            {
+                Buttons =
+                {
+                    new ToastButton("复制", new QueryString()
+                    {
+                        { "action", "copy" },
+                        { "conversationId", conversationId.ToString() }
+
+                    }.ToString())
+                    /*
+                    new ToastButton("查看", new QueryString()
+                    {
+                        { "action", "viewImage" },
+                        { "imageUrl", image }
+
+                    }.ToString())
+                    */
+                }
+            };
+            ToastContent toastContent = new ToastContent()
+            {
+                Visual = visual,
+                Actions = actions,
+                // Arguments when the user taps body of toast
+                Launch = new QueryString()
+                {
+                    { "action", "viewConversation" },
+                    { "conversationId", conversationId.ToString() }
+
+                }.ToString()
+            };
+            var toast = new ToastNotification(toastContent.GetXml());
+            toast.ExpirationTime = DateTime.Now.AddMinutes(1);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetBitmap(RandomAccessStreamReference.CreateFromFile(file));
+            Clipboard.SetContent(dataPackage);
         }
     }
 }

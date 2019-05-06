@@ -18,12 +18,13 @@
         <!--<TextBlock FontSize="28" VerticalAlignment="Center" Text="{Binding Path=Color0,Mode=TwoWay}"/>-->
         <StackPanel Margin="0,0,24,0" Grid.Row="1">
             <!-- 色卡展示部分 -->
-            <Grid Margin="0,20,0,0">
+            <Grid Margin="0,20,0,0" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <!-- 靶心样式 -->
+                <Grid x:Name="Stamp">
                 <ContentControl x:Name="CardItem_Bullseye" Visibility="Visible">
                     <Grid>
                         <Canvas Width="200" Height="250">
@@ -65,6 +66,7 @@
                         </Canvas>
                     </Grid>
                 </ContentControl>
+                </Grid>
                 <Grid Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
@@ -105,7 +107,7 @@
                 <AppBarToggleButton  Label="收藏" x:Name="Favorite" Icon="OutlineStar" Checked="Favorite_Checked" Unchecked="Favorite_Unchecked"/>
                 <AppBarButton Label="删除" x:Name="Erase" Click="Erase_Click" Icon="Delete"/>
                 <AppBarButton Label="复制" Icon="Copy" Click="Copy_Click"/>
-                <AppBarButton Label="分享" Icon="Share"/>
+                <AppBarButton Label="分享" Icon="Share" Click="Share_Click"/>
                 <AppBarButton Label="HEX" Icon="Switch" x:Name="ColorType">
                     <AppBarButton.Flyout>
                         <MenuFlyout>
