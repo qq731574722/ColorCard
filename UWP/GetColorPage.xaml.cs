@@ -103,7 +103,10 @@ namespace UWP
 
                 ReSelectImageButton.Visibility = Visibility.Visible;
                 SelectImageButton.Visibility = Visibility.Collapsed;
-                
+                Color0 = GetPickerRGB(Picker0);
+                Color1 = GetPickerRGB(Picker1);
+                Color2 = GetPickerRGB(Picker2);
+                Color3 = GetPickerRGB(Picker3);
                 SaveCard.IsEnabled = true;
             }
         }
@@ -133,11 +136,12 @@ namespace UWP
                 Color2 = GetPosRGB(posX + 12, posY + 30);
             if (thumb.Equals(Picker3))
                 Color3 = GetPosRGB(posX + 12, posY + 30);
+
         }
 
         private void Img_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(PickAreaGrid.RenderSize.Width + "  " + image.PixelWidth);
+            //System.Diagnostics.Debug.WriteLine(PickAreaGrid.RenderSize.Width + "  " + image.PixelWidth);
             /*  自适应图片大小 */
             /*
             if (image.PixelWidth <= 450)
@@ -155,36 +159,68 @@ namespace UWP
                 Img.MaxWidth = int.MaxValue;
                 Img.Stretch = Stretch.Uniform;
             }*/
-            Color0 = GetPickerRGB(Picker0);
-            Color1 = GetPickerRGB(Picker1);
-            Color2 = GetPickerRGB(Picker2);
-            Color3 = GetPickerRGB(Picker3);
-            PosChanged(Picker0, e);
-            PosChanged(Picker1, e);
-            PosChanged(Picker2, e);
-            PosChanged(Picker3, e);
+            //若开启智能取色
             if (AutoSelect.IsChecked == true)
             {
+                //抽样至50x50像素点
+                var colors = new List<Windows.UI.Color>();
+                var coordinates = new List<KeyValuePair<uint, uint>>();
+                uint gapY = decoder.PixelHeight / 50;
+                uint gapX = decoder.PixelWidth / 50;
+                for (uint i = 0; i < decoder.PixelWidth; i += gapX)
+                {
+                    for (uint j = 0; j < decoder.PixelHeight; j += gapY)
+                    {
+                        var coordinate = new KeyValuePair<uint, uint>(i, j);
+                        coordinates.Add(coordinate);
+                        colors.Add(GetPosColor(i, j));
+                    }
+                }
+                //获取智能取色结果
+                var res = ColorManager.GetMainColor(colors, 4);
+                //将取色器的坐标移动至结果点
+                int cnt = 0;
+                foreach (var color in res)
+                {
+                    int i = colors.IndexOf(color);
+                    double posX = ConvertPixelToPos(coordinates[i].Key) - 12;
+                    double posY = ConvertPixelToPos(coordinates[i].Value) - 30;
+                    switch (cnt)
+                    {
+                        case 0: Canvas.SetLeft(Picker0, posX); Canvas.SetTop(Picker0, posY); break;
+                        case 1: Canvas.SetLeft(Picker1, posX); Canvas.SetTop(Picker1, posY); break;
+                        case 2: Canvas.SetLeft(Picker2, posX); Canvas.SetTop(Picker2, posY); break;
+                        case 3: Canvas.SetLeft(Picker3, posX); Canvas.SetTop(Picker3, posY); break;
+                    }
+                    cnt++;
+                }
                 /*
-                DragDeltaEventArgs eventArgs = new DragDeltaEventArgs(random.Next(0,200), random.Next(0,200));
-                Thumb_DragDelta(Picker0, eventArgs);
-                */
-                
                 Random random = new Random();
                 Canvas.SetTop(Picker0, random.Next(0, (int)PickAreaGrid.RenderSize.Height - 20));
-                Canvas.SetLeft(Picker0, random.Next(0, (int)PickAreaGrid.RenderSize.Width-20));
+                Canvas.SetLeft(Picker0, random.Next(0, (int)PickAreaGrid.RenderSize.Width - 20));
                 Canvas.SetTop(Picker1, random.Next(0, (int)PickAreaGrid.RenderSize.Height - 20));
                 Canvas.SetLeft(Picker1, random.Next(0, (int)PickAreaGrid.RenderSize.Width - 20));
                 Canvas.SetTop(Picker2, random.Next(0, (int)PickAreaGrid.RenderSize.Height - 20));
                 Canvas.SetLeft(Picker2, random.Next(0, (int)PickAreaGrid.RenderSize.Width - 20));
                 Canvas.SetTop(Picker3, random.Next(0, (int)PickAreaGrid.RenderSize.Height - 20));
                 Canvas.SetLeft(Picker3, random.Next(0, (int)PickAreaGrid.RenderSize.Width - 20));
-                Color0 = GetPickerRGB(Picker0);
-                Color1 = GetPickerRGB(Picker1);
-                Color2 = GetPickerRGB(Picker2);
-                Color3 = GetPickerRGB(Picker3);
-                
+                */
             }
+            else
+            {
+                Canvas.SetTop(Picker0, 20);
+                Canvas.SetLeft(Picker0, 20);
+                Canvas.SetTop(Picker1, 20);
+                Canvas.SetLeft(Picker1, 60);
+                Canvas.SetTop(Picker2, 20);
+                Canvas.SetLeft(Picker2, 100);
+                Canvas.SetTop(Picker3, 20);
+                Canvas.SetLeft(Picker3, 140);
+            }
+            Color0 = GetPickerRGB(Picker0);
+            Color1 = GetPickerRGB(Picker1);
+            Color2 = GetPickerRGB(Picker2);
+            Color3 = GetPickerRGB(Picker3);
         }
 
         private void PosChanged(Thumb picker, SizeChangedEventArgs e)
@@ -207,6 +243,11 @@ namespace UWP
             double scale = image.PixelWidth / PickAreaGrid.RenderSize.Width;
             return (int)(pos * scale);
         }
+        private double ConvertPixelToPos(uint pixel)
+        {
+            double scale = PickAreaGrid.RenderSize.Width / (double)image.PixelWidth;
+            return pixel * scale;
+        }
         private string ARGB2RGB(string ARGB)
         {
             string RGB = "#" + ARGB.Substring(3);
@@ -221,6 +262,14 @@ namespace UWP
             if (k >= 0 && k + 3 < colorData.Length)
                 color = Windows.UI.Color.FromArgb(colorData[k + 3], colorData[k + 2], colorData[k + 1], colorData[k + 0]);
             return ARGB2RGB(color.ToString());
+        }
+        private Windows.UI.Color GetPosColor(uint x, uint y)
+        {
+            var k = (y * decoder.PixelWidth + x) * 4;
+            Windows.UI.Color color = new Windows.UI.Color();
+            if (k >= 0 && k + 3 < colorData.Length)
+                color = Windows.UI.Color.FromArgb(colorData[k + 3], colorData[k + 2], colorData[k + 1], colorData[k + 0]);
+            return color;
         }
         private string GetPickerRGB(Thumb picker) => GetPosRGB(Canvas.GetLeft(picker) + 12, Canvas.GetTop(picker) + 30);
 
@@ -258,6 +307,7 @@ namespace UWP
             CardManager.SaveMyCardsAsync();
             SaveCard.IsEnabled = false;
         }
+
 
         public string Color1
         {
