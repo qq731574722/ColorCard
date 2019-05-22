@@ -103,27 +103,7 @@ namespace UWP
 
                 ReSelectImageButton.Visibility = Visibility.Visible;
                 SelectImageButton.Visibility = Visibility.Collapsed;
-                if (AutoSelect.IsChecked == true)
-                {
-                    /*
-                    DragDeltaEventArgs eventArgs = new DragDeltaEventArgs(random.Next(0,200), random.Next(0,200));
-                    Thumb_DragDelta(Picker0, eventArgs);
-                    */
-                    Random random = new Random();
-                    Canvas.SetTop(Picker0, random.Next(0, 500));
-                    Canvas.SetLeft(Picker0, random.Next(0, 1000));
-                    Canvas.SetTop(Picker1, random.Next(0, 500));
-                    Canvas.SetLeft(Picker1, random.Next(0, 1000));
-                    Canvas.SetTop(Picker2, random.Next(0, 500));
-                    Canvas.SetLeft(Picker2, random.Next(0, 1000));
-                    Canvas.SetTop(Picker3, random.Next(0, 500));
-                    Canvas.SetLeft(Picker3, random.Next(0, 1000));
-                    Color0 = GetPickerRGB(Picker0);
-                    Color1 = GetPickerRGB(Picker1);
-                    Color2 = GetPickerRGB(Picker2);
-                    Color3 = GetPickerRGB(Picker3);
-
-                }
+                
                 SaveCard.IsEnabled = true;
             }
         }
@@ -159,6 +139,7 @@ namespace UWP
         {
             System.Diagnostics.Debug.WriteLine(PickAreaGrid.RenderSize.Width + "  " + image.PixelWidth);
             /*  自适应图片大小 */
+            /*
             if (image.PixelWidth <= 450)
             {
                 Img.MaxWidth = 450;
@@ -173,8 +154,7 @@ namespace UWP
             {
                 Img.MaxWidth = int.MaxValue;
                 Img.Stretch = Stretch.Uniform;
-            }
-
+            }*/
             Color0 = GetPickerRGB(Picker0);
             Color1 = GetPickerRGB(Picker1);
             Color2 = GetPickerRGB(Picker2);
@@ -183,6 +163,28 @@ namespace UWP
             PosChanged(Picker1, e);
             PosChanged(Picker2, e);
             PosChanged(Picker3, e);
+            if (AutoSelect.IsChecked == true)
+            {
+                /*
+                DragDeltaEventArgs eventArgs = new DragDeltaEventArgs(random.Next(0,200), random.Next(0,200));
+                Thumb_DragDelta(Picker0, eventArgs);
+                */
+                
+                Random random = new Random();
+                Canvas.SetTop(Picker0, random.Next(0, (int)PickAreaGrid.RenderSize.Height - 20));
+                Canvas.SetLeft(Picker0, random.Next(0, (int)PickAreaGrid.RenderSize.Width-20));
+                Canvas.SetTop(Picker1, random.Next(0, (int)PickAreaGrid.RenderSize.Height - 20));
+                Canvas.SetLeft(Picker1, random.Next(0, (int)PickAreaGrid.RenderSize.Width - 20));
+                Canvas.SetTop(Picker2, random.Next(0, (int)PickAreaGrid.RenderSize.Height - 20));
+                Canvas.SetLeft(Picker2, random.Next(0, (int)PickAreaGrid.RenderSize.Width - 20));
+                Canvas.SetTop(Picker3, random.Next(0, (int)PickAreaGrid.RenderSize.Height - 20));
+                Canvas.SetLeft(Picker3, random.Next(0, (int)PickAreaGrid.RenderSize.Width - 20));
+                Color0 = GetPickerRGB(Picker0);
+                Color1 = GetPickerRGB(Picker1);
+                Color2 = GetPickerRGB(Picker2);
+                Color3 = GetPickerRGB(Picker3);
+                
+            }
         }
 
         private void PosChanged(Thumb picker, SizeChangedEventArgs e)

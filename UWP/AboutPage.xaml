@@ -17,7 +17,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="28" VerticalAlignment="Center" Text="关于"/>
-                    <TextBlock FontSize="14" Text="v1.0.0 by Jason" VerticalAlignment="Bottom" Margin="24,0,0,0"/>
+                    <TextBlock FontSize="14" Text="v0.0.1 developed by xp" VerticalAlignment="Bottom" Margin="24,0,0,0"/>
                 </StackPanel>
             </Grid>
             <Grid>
